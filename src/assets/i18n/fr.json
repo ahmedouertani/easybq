@@ -1,0 +1,74 @@
+{
+  "layout": {
+    "menu": {
+      "folders": "Mes dossiers",
+      "users": "Gestion des utilisateurs",
+      "settings": "Paramètres",
+      "sign-out": "Se déconnecter"
+    }
+  },
+  "common": {
+    "form": {
+      "required": "Ce champ est requis",
+      "email": "Le format de l'email est invalide",
+      "empty-file": "Aucun fichier sélectionné"
+    },
+    "role": {
+      "user": "Utilisateur",
+      "admin": "Administrateur"
+    }
+  },
+  "loading": {
+    "default": "Chargement en cours, merci de patienter..."
+  },
+  "features": {
+    "folders": {
+      "title": "Mes dossiers",
+      "search": "Rechercher un dossier",
+      "add": "Ajouter un dossier",
+      "table": {
+        "name": "Nom",
+        "actions": "Actions",
+        "owner": "Propriétaire",
+        "added_at": "Ajouté le",
+        "identifier": "Identifiant"
+      },
+      "add-dialog": {
+        "title": "Ajouter un dossier",
+        "email": "Nom du dossier",
+        "action": "Créer"
+      }
+    },
+    "folder-detail": {
+      "title": "Détail du dossier"
+    },
+    "users": {
+      "title": "Gestion des utilisateurs",
+      "search": "Rechercher un utilisateur",
+      "add": "Ajouter un utilisateur",
+      "table": {
+        "email": "Email",
+        "actions": "Actions",
+        "role": "Rôle",
+        "added_at": "Ajouté le",
+        "identifier": "Identifiant"
+      },
+      "add-dialog": {
+        "title": "Ajouter un utilisateur",
+        "email": "Email",
+        "role": "Rôle",
+        "action": "Ajouter"
+      }
+    },
+    "settings": {
+      "title": "Paramètres",
+      "service-account": {
+        "title": "Configurer service account",
+        "submit": "Envoyer le service account"
+      },
+      "languages": {
+        "title": "Langue de l'application"
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+<h1>
+  {{ 'features.settings.title' | transloco }}
+</h1>
+
+<h2>
+  {{ 'features.settings.service-account.title' | transloco }}
+</h2>
+
+<div class="service-account-form">
+  <div class="upload-zone">
+    <input type="file" class="file-input" accept=".json" (change)="onFileSelected($event)" #fileUpload>
+    <div class="file-upload">
+      <button mat-icon-button color="primary" (click)="fileUpload.click()">
+        <mat-icon>attach_file</mat-icon>
+      </button>
+      <div (click)="fileUpload.click()" class="file-name">
+        {{ file?.name || ('common.form.empty-file' | transloco) }}
+      </div>
+    </div>
+  </div>
+  <div>
+    <button mat-flat-button color="primary" type="button" [disabled]="!file" (click)="submitFile()">
+      {{ 'features.settings.service-account.submit' | transloco }}
+    </button>
+  </div>
+</div>
+
+<h2>
+  {{ 'features.settings.languages.title' | transloco }}
+</h2>
+
+<mat-form-field appearance="outline">
+  <mat-select (selectionChange)="onSelectionChange($event)" [value]="defaultLanguage">
+    <mat-option value="en">English / Anglais</mat-option>
+    <mat-option value="fr">French / Français</mat-option>
+  </mat-select>
+</mat-form-field>

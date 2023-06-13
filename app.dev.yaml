@@ -1,0 +1,24 @@
+runtime: python27
+api_version: 1
+threadsafe: yes
+service: esaybq-frontend
+
+
+env_variables:
+  BUCKET_NAME: "easybq"
+  ENVIRONMENT: "dev"
+  DEBUG: True
+handlers:
+  - url: /(.*\.(gif|png|jpg|css|js|scss|svg|ico)(|\.map))$
+    static_files: dist/easy-bq/\1
+    upload: dist/easy-bq/.*\.(gif|png|jpg|css|js|scss|svg|ico)(|.map)
+  - url: /(.*)$
+    static_files: dist/easy-bq/index.html
+    upload: dist/easy-bq/index.html
+  - url: /(.*\.(js|css|svg|png)(|\.map))$
+    static_files: dist/easy-bq/\1
+    upload: dist/easy-bq/(.*)(|\.map)
+  - url: /.*
+    static_files: dist/easy-bq/index.html
+    upload: dist/easy-bq/index.html
+    

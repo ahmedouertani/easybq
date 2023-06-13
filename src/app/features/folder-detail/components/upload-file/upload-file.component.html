@@ -1,0 +1,23 @@
+<mat-toolbar>
+  <mat-toolbar-row>
+    <span>Upload File</span>
+    <span class="spacer"></span>
+    <button mat-icon-button (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="upload-file-form">
+  <input type="file" class="file-input" accept=".csv" (change)="onFileSelected($event)" #fileUpload>
+  <div class="file-upload">
+    <button mat-icon-button color="primary" (click)="fileUpload.click()">
+      <mat-icon>attach_file</mat-icon>
+    </button>
+    <div (click)="fileUpload.click()" class="file-name">
+      {{ file?.name || ('common.form.empty-file' | transloco) }}
+    </div>
+  </div>
+
+  <button mat-flat-button color="primary" [disabled]="!file" (click)="close()">Envoyer</button>
+</div>

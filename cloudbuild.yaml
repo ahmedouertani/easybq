@@ -1,0 +1,17 @@
+steps:
+- name: 'gcr.io/cloud-builders/npm:node-16.18.0'
+  args: ['install','--force']
+  dir: 'services/frontend'
+- name: 'gcr.io/cloud-builders/npm:node-16.18.0'
+  args: ['run', 'build']
+  dir: 'services/frontend'
+- name: 'gcr.io/cloud-builders/gsutil'
+  args: ['-m', 'cp', '-r', 'services/frontend/dist', 'gs://bqls-test217.appspot.com']
+  dir: ''
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['app', 'deploy', '--appyaml=app.${_ENV}.yaml','--ignore-file=.gcloudignore' ]
+  dir: 'services/frontend'
+- name: 'google/cloud-sdk'
+  entrypoint: 'bash'
+  args: ['-c', 'ls -lR services/frontend/dist']
+timeout: '3000s'

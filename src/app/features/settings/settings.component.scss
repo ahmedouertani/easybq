@@ -1,0 +1,35 @@
+.service-account-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+h2 {
+  margin-top: 32px;
+}
+
+.upload-zone {
+  border: 2px dashed lightgrey;
+  padding: 16px;
+  min-height: 320px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .file-input {
+    display: none;
+  }
+
+  .file-name {
+    flex: 1 1 auto;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .file-upload {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+  }
+}

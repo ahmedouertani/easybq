@@ -1,0 +1,74 @@
+{
+  "layout": {
+    "menu": {
+      "folders": "Folders",
+      "users": "Manage users",
+      "settings": "Settings",
+      "sign-out": "Sign out"
+    }
+  },
+  "common": {
+    "form": {
+      "required": "Field required",
+      "email": "Email format is invalid",
+      "empty-file": "No file selected"
+    },
+    "role": {
+      "user": "User",
+      "admin": "Administrator"
+    }
+  },
+  "loading": {
+    "default": "Loading in progress, please wait..."
+  },
+  "features": {
+    "folders": {
+      "title": "Folders",
+      "search": "Search a folder",
+      "add": "Add a folder",
+      "table": {
+        "name": "Name",
+        "actions": "Actions",
+        "owner": "Owner",
+        "added_at": "Added at",
+        "identifier": "Identifier"
+      },
+      "add-dialog": {
+        "title": "Add a folder",
+        "email": "Name of the folder",
+        "action": "Create"
+      }
+    },
+    "folder-detail": {
+      "title": "Folder detail"
+    },
+    "users": {
+      "title": "Users",
+      "search": "Search an user",
+      "add": "Add an user",
+      "table": {
+        "email": "Email",
+        "actions": "Actions",
+        "role": "Role",
+        "added_at": "Added at",
+        "identifier": "Identifier"
+      },
+      "add-dialog": {
+        "title": "Add an user",
+        "email": "User email",
+        "role": "Role",
+        "action": "Create"
+      }
+    },
+    "settings": {
+      "title": "Settings",
+      "service-account": {
+        "title": "Configure service account",
+        "submit": "Upload service account"
+      },
+      "languages": {
+        "title": "Languages"
+      }
+    }
+  }
+}

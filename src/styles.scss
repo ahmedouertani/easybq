@@ -1,0 +1,83 @@
+body {
+  padding: 0;
+  margin: 0;
+  background-color: whitesmoke;
+}
+
+/**
+ * Override Material Design Components styles
+ */
+.dense-form-field {
+  .mat-mdc-form-field-infix {
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 32px;
+  }
+}
+
+.button[mat-icon-button] {
+  border-radius: 50%;
+}
+
+.bottom-sheet-without-padding {
+  .mat-bottom-sheet-container {
+    padding: 0;
+  }
+}
+
+.table-hover-row {
+  tbody tr:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.03) !important;
+  }
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.error-page {
+  text-align: center;
+  background-color: #001f5b;
+  padding: 5% 0 5% 0;
+  color: white;
+  box-shadow: 0px 4px 17px rgba(0, 0, 0, 0.6);
+}
+
+.alert {
+  font-size: 24px;
+  -webkit-transition: 1s ease-out !important;
+  -moz-transition: 1s ease-out !important;
+  transition: 1s ease-out !important;
+}
+
+.alert:hover {
+  -webkit-transform: rotateZ(360deg) !important;
+  -moz-transform: rotateZ(360deg) !important;
+  transform: rotateZ(360deg) !important;
+}
+.blue-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  background-color: #17b8b8 !important;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.blue-button:hover {
+  background-color: #139191 !important;
+}
