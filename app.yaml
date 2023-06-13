@@ -1,0 +1,22 @@
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+
+env_variables:
+  BUCKET_NAME: "easybq"
+  ENVIRONMENT: "dev"
+  DEBUG: True
+handlers:
+  - url: /(.*\.(gif|png|jpg|css|js|scss|svg|ico)(|\.map))$
+    static_files: dist/TanitLab/\1
+    upload: dist/TanitLab/.*\.(gif|png|jpg|css|js|scss|svg|ico)(|.map)
+  - url: /(.*)$
+    static_files: dist/TanitLab/index.html
+    upload: dist/TanitLab/index.html
+  - url: /(.*\.(js|css|svg|png)(|\.map))$
+    static_files: dist/TanitLab/\1
+    upload: dist/TanitLab/(.*)(|\.map)
+  - url: /.*
+    static_files: dist/TanitLab/index.html
+    upload: dist/TanitLab/index.html  

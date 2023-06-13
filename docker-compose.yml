@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    ports:
+      - 8080:8080
+      - 50000:50000
+   # volumes:
+    #  - jenkins_home:/var/jenkins_home
+
+  sonarqube:
+    image: sonarqube:latest
+    ports:
+      - 9000:9000
+    environment:
+      - SONARQUBE_JDBC_USERNAME=admin
+      - SONARQUBE_JDBC_PASSWORD=bouhmidenaey97
+
+  nexus:
+    image: sonatype/nexus3
+    ports:
+      - 8081:8081
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - 3000:3000
+    depends_on:
+      - prometheus
+
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+#    networks:
+ #     - dev-network
+
+#networks:
+ # dev-network:
+
+#volumes:
+ # jenkins_home:
+  #sonarqube-db:
+  #nexus-data:
+
