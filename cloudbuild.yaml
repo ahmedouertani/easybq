@@ -5,7 +5,6 @@ steps:
     args: ['run', 'build']
   - name: 'gcr.io/cloud-builders/gsutil'
     args: ['-m', 'cp', '-r', 'dist', 'gs://bqls-test217.appspot.com']
-    dir: ''
   - name: 'gcr.io/cloud-builders/gcloud'
     args: ['app', 'deploy', '--appyaml=app.yaml', '--ignore-file=.gcloudignore']
   - name: 'google/cloud-sdk'

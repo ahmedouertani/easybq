@@ -8,13 +8,12 @@ env_variables:
 
 handlers:
   - url: /(.*\.[A-Za-z0-9]{1,4})$
-    static_files: dist/easy-bq/\1
     upload: dist/easy-bq/(.*\.[A-Za-z0-9]{1,4})$
   - url: /(.*)$
     static_files: dist/easy-bq/index.html
     upload: dist/easy-bq/index.html
   - url: /(.*\.(js|css|svg|png)(|\.map))$
-    static_files: dist/\1
+    static_files: dist/(.*)
     upload: dist/(.*)(|\.map)
   - url: /.*
     static_files: dist/index.html
