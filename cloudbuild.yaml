@@ -1,4 +1,6 @@
 steps:
+  - name: 'gcr.io/cloud-builders/git'
+    args: ['clone', 'https://github.com/your/repository.git', 'src']
   - name: 'gcr.io/cloud-builders/npm:node-16.18.0'
     args: ['install', '--force']
   - name: 'gcr.io/cloud-builders/npm:node-16.18.0'
@@ -6,7 +8,7 @@ steps:
   - name: 'gcr.io/cloud-builders/gsutil'
     args: ['-m', 'cp', '-r', 'dist', 'gs://bqls-test217.appspot.com']
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['app', 'deploy', '--appyaml=app.${_ENV}yaml','--ignore-file=.gcloudignore' ]
+    args: ['app', 'deploy', '--appyaml=app.yaml','--ignore-file=.gcloudignore' ]
   - name: 'google/cloud-sdk'
     entrypoint: 'bash'
     args: ['-c', 'ls -lR dist']
