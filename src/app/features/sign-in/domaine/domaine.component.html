@@ -1,0 +1,29 @@
+<mat-card>
+  <form
+  class="create-folder-form"
+  [formGroup]="formGroup">
+  <mat-card-header>
+    <img src="../../../assets/images/logo.png" class="logo" alt="" srcset="">
+  </mat-card-header>
+  <mat-card-content [formGroup]="formGroup">
+      <h3>Please Create Your Domaine</h3>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Domaine Name</mat-label>
+        <input matInput formControlName="domaineName" />
+        <mat-error *ngIf="formGroup.get('domaineName')?.hasError('required')">
+          {{ "common.form.required" | transloco }}
+        </mat-error>
+        <mat-hint *ngIf="domainExists == true">
+        {{ "common.domaine" | transloco }}</mat-hint>
+      </mat-form-field>
+  </mat-card-content>
+  <mat-card-footer>
+    <button  mat-flat-button (click)="createProfile()">
+      <div class="text-with-icon">
+        <mat-icon>domain_verification</mat-icon>
+       <span>Create Your Domaine</span>
+      </div>
+  </button>
+  </mat-card-footer>
+  </form>
+</mat-card>

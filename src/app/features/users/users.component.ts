@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { UsersService } from './services/users.service';
-import { AsyncPipe, JsonPipe, NgFor, NgIf } from '@angular/common';
-import { Observable, filter } from 'rxjs';
+import { AsyncPipe, DatePipe, JsonPipe, NgFor, NgIf } from '@angular/common';
+import { Observable, Subscription, filter } from 'rxjs';
 import { UsersTableComponent } from './components/users-table/users-table.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -11,35 +11,26 @@ import { MatButtonModule } from '@angular/material/button';
 import { InviteUserComponent } from './components/invite-user/invite-user.component';
 import { MatBottomSheet, MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { LoaderComponent } from '../../components/loader.component';
-import { TranslocoModule } from '@ngneat/transloco';
+import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
 import { Profile} from 'src/app/models/profile.model';
+import { displayConfirmationAlert, handleResponseErrorWithAlerts, handleResponseSuccessWithAlerts } from 'src/app/common/alerts.utils';
 
 @Component({
   standalone: true,
   selector: 'app-users',
-  styles: [`
-    .users-card {
-      padding: 24px 16px;
-    }
-
-    .add-user {
-      padding-top: 32px;
-      padding-bottom: 16px;
-    }
-  `],
   template: `
-    <h1>
-    {{ 'features.users.title' | transloco }}
-    </h1>
-
     <ng-container *ngIf="users$ | async as users; else loading">
-      <div class="add-user">
+
+      <div class="btn-add">
+        <h1>
+        {{ 'features.users.title' | transloco }}
+        </h1>
         <button mat-flat-button color="primary" (click)="addUser()">
         {{ 'features.users.add' | transloco }}
         </button>
       </div>
 
-      <mat-card class="users-card">
+      <mat-card>
         <mat-form-field appearance="outline">
           <mat-label>
           {{ 'features.users.search' | transloco }}
@@ -84,6 +75,8 @@ export class UsersComponent implements OnInit {
   private readonly usersService = inject(UsersService);
   private readonly bottomSheet = inject(MatBottomSheet);
   public users$: Observable<Profile[]>;
+  private readonly transloco = inject(TranslocoService);
+
 
   public ngOnInit() {
     this.fetchAll();
@@ -95,19 +88,32 @@ export class UsersComponent implements OnInit {
 
   public deleteUser(user: Profile): void {
     // TODO : add a loading spinner
-    this.usersService
-      .deleteUser(user.id)
-      .subscribe({
-        next: () => this.fetchAll(),
-        error: () => alert('Une erreur est survenue lors de la suppression de l\'utilisateur')
+    displayConfirmationAlert(
+      this.transloco.translate('features.users.dialog.confirmation'),
+      this.transloco.translate('common.confirm'),
+      this.transloco.translate('common.cancel'),
+    )
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.handleResponse(
+            this.usersService.deleteUser(user.uid)
+            .subscribe({
+                next: () => this.fetchAll(),
+                 error: () => alert('Une erreur est survenue lors de la suppression de l\'utilisateur')
+              }), 'remove'
+          );
+        }
       });
+  }
+  handleResponse(arg0: Subscription, arg1: string) {
+    throw new Error('Method not implemented.');
   }
 
   public updateRole(user: Profile) {
     // TODO : add a loading spinner
 
     this.usersService
-      .updateUser(user.id, user)
+      .updateUser(user.uid, user)
       .subscribe(() => this.fetchAll());
   }
 
@@ -117,8 +123,23 @@ export class UsersComponent implements OnInit {
       this.usersService
         .sendInvitation(user)
         .subscribe({
-          next: () => this.fetchAll(),
-          error: () => alert('Une erreur est survenue lors de l\'invitation de l\'utilisateur')
+          next: () =>{
+            this.fetchAll();
+            handleResponseSuccessWithAlerts(
+              this.transloco.translate('features.users.success.title'),
+              this.transloco.translate('features.users.success.message'),
+              this.transloco.translate('common.close'),()=>{
+              }
+            );
+          }
+          ,
+          error: () => {
+            handleResponseErrorWithAlerts(
+              this.transloco.translate('features.users.error.title'),
+              this.transloco.translate('features.users.error.message'),
+              this.transloco.translate('common.close')
+            )
+          }
         });
     }
   }

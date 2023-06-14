@@ -1,0 +1,71 @@
+<mat-toolbar class="mat-elevation-z1">
+  <mat-toolbar-row class="max-width-container">
+
+    <div class="logo-chips">
+      <img routerLink="/folders" class="brand" src="./assets/images/logo.png" alt="Logo" role="presentation">
+        <span class="type-chip" [ngClass]="{
+          'yes': status === true,
+          'no': status === false,
+        }">
+        <ng-container *ngIf="status === true"> {{ 'common.activate' | transloco }}</ng-container>
+        <ng-container *ngIf="status === false">
+          <ng-container *ngIf="userRole === 'admin'">
+            <span  (click)="navigateToSettings()">{{ 'common.deactivate' | transloco }}</span>
+          </ng-container>
+          <ng-container *ngIf="userRole !== 'admin'">
+            <span >{{ 'common.deactivate' | transloco }}</span>
+          </ng-container>
+        </ng-container>
+        </span>
+    </div>
+
+      <div class="user-container-metadata" *ngIf="user">
+        <div class="language-select">
+          <mat-form-field appearance="outline">
+            <mat-select (selectionChange)="onSelectionChange($event)" [value]="defaultLanguage">
+              <mat-option value="en">English</mat-option>
+              <mat-option value="fr">Français</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="user-name" [matMenuTriggerFor]="menu">
+
+          <button mat-icon-button class="user-avatar-trigger">
+            <mat-avatar class="user-avatar">
+              {{ getFirstLetter(user?.email) }}
+            </mat-avatar>
+          </button>
+
+        </div>
+
+        <mat-menu #menu="matMenu" class="customize">
+          <button mat-menu-item disabled>
+            <div class="user-metadata">
+              <strong>{{ user.displayName }}</strong>
+              <span>{{ domaineName }} Workspace</span>
+            </div>
+          </button>
+          <button mat-menu-item routerLink="folders">
+            <mat-icon>folders</mat-icon>
+            {{ 'layout.menu.folders' | transloco }}
+          </button>
+          <button mat-menu-item routerLink="users" *ngIf="isAdmin">
+            <mat-icon>group</mat-icon>
+            {{ 'layout.menu.users' | transloco }}
+          </button>
+          <button mat-menu-item routerLink="settings" *ngIf="isAdmin">
+            <mat-icon>settings</mat-icon>
+            {{ 'layout.menu.settings' | transloco }}
+          </button>
+          <button mat-menu-item (click)="signOut()">
+            <mat-icon>logout</mat-icon>
+            {{ 'layout.menu.sign-out' | transloco }}
+          </button>
+        </mat-menu>
+      </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="layout-container max-width-container">
+  <router-outlet></router-outlet>
+</div>

@@ -2,28 +2,32 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-}
-
-h2 {
-  margin-top: 32px;
+  .file-input {
+    display: none;
+  }
+  .flex-position-end {
+    display: flex;
+    justify-content: end;
+    margin-top: 1rem;
+  }
 }
 
 .upload-zone {
-  border: 2px dashed lightgrey;
+  border: 2px dashed #5086ec;
   padding: 16px;
   min-height: 320px;
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 
-  .file-input {
-    display: none;
-  }
+
 
   .file-name {
     flex: 1 1 auto;
     font-weight: bold;
     cursor: pointer;
+    color: #5086ec;
   }
 
   .file-upload {
@@ -33,3 +37,4 @@ h2 {
     gap: 8px;
   }
 }
+

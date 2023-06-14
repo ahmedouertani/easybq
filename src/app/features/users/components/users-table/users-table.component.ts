@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { NgIf } from '@angular/common';
+import { DatePipe, NgIf } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { AbstractTableComponent } from '../../../../components/table.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -24,6 +24,8 @@ import { Profile } from 'src/app/models/profile.model';
     MatSelectModule,
     MatFormFieldModule,
     TranslocoModule,
+    DatePipe
+
   ],
 })
 export class UsersTableComponent extends AbstractTableComponent<Profile> {
@@ -37,7 +39,6 @@ export class UsersTableComponent extends AbstractTableComponent<Profile> {
     'email',
     'role',
     'created_on',
-    'id',
     'actions'
   ];
 

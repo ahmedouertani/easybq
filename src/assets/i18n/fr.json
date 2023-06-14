@@ -11,25 +11,46 @@
     "form": {
       "required": "Ce champ est requis",
       "email": "Le format de l'email est invalide",
-      "empty-file": "Aucun fichier sélectionné"
+      "empty-file": "Selectionnez un fichier"
     },
     "role": {
       "user": "Utilisateur",
       "admin": "Administrateur"
-    }
+    },
+    "close": "Fermer",
+    "activate": "Compte activé",
+    "deactivate": "Compte désactivé",
+    "start-now": {
+      "title": "Compte désactivé ",
+      "message": "Veuillez ajouter un compte de service pour télécharger vos fichiers"
+    },
+    "contact-admin": {
+      "title": "Compte non activé",
+      "message": "Veuillez contacter votre administration pour charger le service des comptes !"
+    },
+    "submit": "Envoyer",
+    "update": "Mettre à jour",
+    "remove": "Supprimer",
+    "confirm": "Confirmer",
+    "cancel": "Annuler",
+    "loading": "Merci de patienter...",
+    "required": "Ce champ est obligatoire",
+    "back_to_home": "Retour à l'accueil",
+    "please_retry": "Merci de réessayer ultérieurement",
+    "domaine":"Choisir un autre domaine"
   },
   "loading": {
-    "default": "Chargement en cours, merci de patienter..."
+    "default": "Chargement en cours, Merci de patienter..."
   },
   "features": {
     "folders": {
-      "title": "Mes dossiers",
-      "search": "Rechercher un dossier",
+      "title": "Mes Dossiers",
+      "search": "Rechercher...",
       "add": "Ajouter un dossier",
       "table": {
         "name": "Nom",
         "actions": "Actions",
-        "owner": "Propriétaire",
+        "owner": "Créer par",
         "added_at": "Ajouté le",
         "identifier": "Identifiant"
       },
@@ -37,14 +58,102 @@
         "title": "Ajouter un dossier",
         "email": "Nom du dossier",
         "action": "Créer"
+      },
+      "dialog": {
+        "confirmation": "Êtes-vous sûr de vouloir supprimer ce dossier?",
+        "title": {
+          "edit": "Modifier un dossier",
+          "create": "Ajouter un dossier"
+        },
+        "error": {
+          "configuration": "Une erreur est survenue lors de la récupération de la configuration",
+          "remove": "Une erreur est survenue lors de la suppression du dossier",
+          "create": "Une erreur est survenue lors de la création du dossier",
+          "update": "Une erreur est survenue lors de la mise à jour du dossier"
+        },
+        "loading": {
+          "create": "Création du dossier",
+          "update": "Mise à jour du dossier",
+          "remove": "Suppression du dossier"
+        }
+      }
+    },
+    "tables": {
+      "add": "Ajouter un fichier",
+      "update": "Modifier la table",
+      "search": "Rechercher...",
+      "table": {
+        "name": "Nom",
+        "actions": "Actions",
+        "created_on": "Ajouté le",
+        "updated_on": "Mis à jour le",
+        "type": "Type"
+      },
+      "add-dialog": {
+        "title": "Ajouter une table",
+        "tableName": "Nom de table",
+        "action": "Créer",
+        "skip_leading_rows": "Sauter les premières lignes",
+        "field_delimiter": "Délimiteur de champ",
+        "write_disposition": "Disposition des critures",
+        "file": "Fichier",
+        "custom": "Personnaliser le délimiteur de champ",
+        "comma": "Virgule",
+        "tabulation":"Tabulation",
+        "perso": "Personnalisé",
+        "append": "Joindre",
+        "overwrite":"Écraser"
       }
     },
     "folder-detail": {
-      "title": "Détail du dossier"
+      "title": "Détail de ",
+      "history-file": "Historique des fichiers",
+      "tables": "Tables",
+      "overview": "Aperçu",
+      "schema": "Schema",
+      "file-detail": "Detail de ",
+      "upload-file": "Uploader un fichier",
+      "infos": "Informations sur le fichier",
+      "informations": {
+        "table_name": "Nom de table",
+        "table_size": "Taille de fichier",
+        "number_rows": "Nombre du rows",
+        "folder_name": "Nom de dossier",
+        "created_by": "Crée par",
+        "created_on": "Crée le",
+        "last_update": "Modifier le"
+      },
+      "costum": "Le délimiteur de champ doit être un caractère unique.",
+      "success": {
+        "title": "Votre fichier a été envoyé",
+        "message": "Vous pouvez le consulter"
+      },
+      "error": {
+        "title": "Oops",
+        "message": "Il y a une erreur, vérifiez vos données s'il vous plaît!"
+      },
+      "dialog": {
+        "confirmation": "Êtes-vous sûr de vouloir supprimer ce fichier?",
+        "title": {
+          "edit": "Modifier un fichier",
+          "create": "Ajouter un fichier"
+        },
+        "error": {
+          "configuration": "Une erreur est survenue lors de la récupération de la configuration",
+          "remove": "Une erreur est survenue lors de la suppression du fichier",
+          "create": "Une erreur est survenue lors de la création du fichier",
+          "update": "Une erreur est survenue lors de la mise à jour du fichier"
+        },
+        "loading": {
+          "create": "Création du fichier",
+          "update": "Mise à jour du fichier",
+          "remove": "Suppression du fichier"
+        }
+      }
     },
     "users": {
       "title": "Gestion des utilisateurs",
-      "search": "Rechercher un utilisateur",
+      "search": "Rechercher...",
       "add": "Ajouter un utilisateur",
       "table": {
         "email": "Email",
@@ -58,16 +167,51 @@
         "email": "Email",
         "role": "Rôle",
         "action": "Ajouter"
+      },
+      "success": {
+        "title": "L'utilisateur est invité avec succès",
+        "message": "Un email à été envoyé à cet utilisateur"
+      },
+      "error": {
+        "title": "Oops",
+        "message": "Cet utilisateur se trouve dans un autre espace de travail !"
+      },
+      "dialog": {
+        "confirmation": "Êtes-vous sûr de vouloir supprimer cet utilisateur ?",
+        "title": {
+          "edit": "Modifier un utilisateur",
+          "create": "Ajouter un utilisateur"
+        },
+        "error": {
+          "configuration": "Une erreur est survenue lors de la récupération de la configuration",
+          "remove": "Une erreur est survenue lors de la suppression du cet utilisateur",
+          "create": "Une erreur est survenue lors de la création du cet utilisateur",
+          "update": "Une erreur est survenue lors de la mise à jour du cet utilisateur"
+        },
+        "loading": {
+          "create": "Création d'utilisateur",
+          "update": "Mise à jour d'utilisateur",
+          "remove": "Suppression d'utilisateur"
+        }
       }
     },
     "settings": {
       "title": "Paramètres",
+      "email": "Vous avez déjà un compte service avec client email",
       "service-account": {
         "title": "Configurer service account",
         "submit": "Envoyer le service account"
       },
       "languages": {
         "title": "Langue de l'application"
+      },
+      "success": {
+        "title": "Service de compte téléchargé avec succès ",
+        "message": "Vous pouvez télécharger vos fichiers maintenant"
+      },
+      "error": {
+        "title": "Oops",
+        "message": "Il y a une erreur vérifiez votre fichier JSON"
       }
     }
   }

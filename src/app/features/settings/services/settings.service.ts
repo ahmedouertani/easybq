@@ -1,5 +1,4 @@
 import {
-  HttpBackend,
   HttpClient,
   HttpHeaders,
   HttpXhrBackend,
@@ -51,5 +50,12 @@ export class SettingsService {
       data,
       httpOptions
     );
+  }
+
+  public getEmailAS(): Observable<any> {
+    return this.http
+      .get(
+        `${environment.apiUrl}/get_email_account_service/${this.profile.profile.idDomaine}`
+      );
   }
 }

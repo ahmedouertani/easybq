@@ -1,0 +1,127 @@
+
+
+<div class="btn-add">
+    <span class="back-and-title">
+        <a class="btn-back">
+            <mat-icon routerLink="..">arrow_backward</mat-icon>
+        </a>
+        <h1>{{ 'features.folder-detail.title' | transloco }} {{infos?.table_name}} </h1>
+    </span>
+    <button mat-flat-button color="primary" (click)="openUploadFileDialog()">
+        {{ 'features.folder-detail.upload-file' | transloco }}
+    </button>
+</div>
+<mat-card>
+    <mat-tab-group>
+
+        <mat-tab label="{{ 'features.folder-detail.infos' | transloco }}">
+            <div class="table-responsive" *ngIf="infos ; else loadingInfos">
+                <table class="table table-user-information" style="margin-bottom: 0;">
+                    <tbody>
+                        <tr>
+                            <td class="td-header">
+                                <span class="  glyphicon glyphicon-asterisk "></span>
+                                {{ 'features.folder-detail.informations.table_name' | transloco }}
+                            </td>
+                            <td class="td-body">
+                                {{infos?.table_name}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td-header">
+                                <span class="glyphicon glyphicon-user  "></span>
+                                {{ 'features.folder-detail.informations.folder_name' | transloco }}
+                            </td>
+                            <td class="td-body">
+                                {{infos?.folder_name}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td-header">
+                                <span class="glyphicon glyphicon-cloud "></span>
+                                {{ 'features.folder-detail.informations.created_by' | transloco }}
+                            </td>
+                            <td class="td-body">
+                                {{infos?.created_by}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td-header">
+                                <span class="glyphicon glyphicon-bookmark "></span>
+                                {{ 'features.folder-detail.informations.created_on' | transloco }}
+                            </td>
+                            <td class="td-body">
+                                {{infos.created_on | date:'short'}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td-header">
+                                <span class="glyphicon glyphicon-eye-open "></span>
+                                {{ 'features.folder-detail.informations.last_update' | transloco }}
+                            </td>
+                            <td class="td-body">
+                                {{infos?.last_update | date:'short' }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td-header">
+                                <span class="glyphicon glyphicon-envelope "></span>
+                                {{ 'features.folder-detail.informations.number_rows' | transloco }}
+                            </td>
+                            <td class="td-body">
+                                {{infos?.number_rows}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td-header">
+                                <span class="glyphicon glyphicon-envelope "></span>
+                                {{ 'features.folder-detail.informations.table_size' | transloco }}
+                            </td>
+                            <td class="td-body">
+                                {{infos?.table_size}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </mat-tab>
+        <mat-tab label="{{ 'features.folder-detail.schema' | transloco }}">
+            <ng-container *ngIf="scheme$ |async as scheme ; else loadingInfos">
+                <mat-card class="tables-card">
+                    <app-file-schema  [data]="scheme.message ? [] : scheme.data_scheme"
+                    (rowClicked)="handleRowCliked($event)">
+                    </app-file-schema>
+                </mat-card>
+            </ng-container>
+        </mat-tab>
+
+        <mat-tab label="{{ 'features.folder-detail.overview' | transloco }}">
+            <ng-container *ngIf="files$ | async as files; else loadingFiles">
+                <mat-card class="tables-card">
+                    <app-table-overview [data]="files.message ? [] : files.values"
+                        (rowClicked)="handleRowCliked($event)">
+                    </app-table-overview>
+                </mat-card>
+            </ng-container>
+        </mat-tab>
+        <mat-tab label="{{ 'features.folder-detail.history-file' | transloco }}">
+            <ng-container *ngIf="filesHistory$ | async as filesHistory; else loadingFilesHistory">
+                <mat-card class="tables-card">
+                    <app-list-files [data]="filesHistory.message ? [] : filesHistory"
+                        (rowClicked)="handleRowCliked($event)">
+                    </app-list-files>
+                </mat-card>
+            </ng-container>
+        </mat-tab>
+    </mat-tab-group>
+</mat-card>
+
+<ng-template #loadingFiles>
+    <app-loader> {{ 'loading.default' | transloco }} </app-loader>
+</ng-template>
+<ng-template #loadingInfos>
+    <app-loader> {{ 'loading.default' | transloco }} </app-loader>
+</ng-template>
+<ng-template #loadingFilesHistory>
+    <app-loader> {{ 'loading.default' | transloco }} </app-loader>
+</ng-template>

@@ -27,14 +27,14 @@ export class UsersService {
   public deleteUser(userId: string): Observable<void> {
     return this.http
       .delete<void>(
-        `${environment.apiUrl}/delete_user/${this.profileService.profile.idDomaine}/${userId}`
+        `${environment.apiUrl}/delete_user/${userId}`
       );
   }
 
   public updateUser(userId: string, data: Profile): Observable<void> {
     return this.http
       .put<void>(
-        `${environment.apiUrl}/update_user/${this.profileService.profile.idDomaine}/${userId}`,
+        `${environment.apiUrl}/update_user/${userId}`,
         data
       );
   }

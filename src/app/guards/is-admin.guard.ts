@@ -13,7 +13,7 @@ import { UserRole } from '../models/profile.model';
 export const extractRole = async (user: User | null): Promise<UserRole> => {
   const firestore = inject(Firestore);
   const queryResult = await getDocs(
-    query(collection(firestore, 'admin_BQDS'), where('uid', '==', user?.uid))
+    query(collection(firestore, 'membership_BQDS'), where('uid', '==', user?.uid))
   );
 
   // Extract the role from the first document in the query result

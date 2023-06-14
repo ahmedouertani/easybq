@@ -7,7 +7,7 @@ export const environment = {
   appVersion: 'v8.1.0',
   USERDATA_KEY: 'authf649fc9a5f55',
   isMockEnabled: true,
-  apiUrl: 'https://easy-bq-backend-dot-bqls-368213.lm.r.appspot.com',
+  apiUrl: 'http://34.123.242.72:8000',
 
   firebaseConfig: {
     apiKey: "AIzaSyCyfTkKG18baK-NIzS14SqgYziH_iEv_QQ",

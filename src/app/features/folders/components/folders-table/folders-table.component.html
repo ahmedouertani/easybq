@@ -8,21 +8,13 @@
     </td>
   </ng-container>
 
-  <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>
-      {{ 'features.folders.table.identifier' | transloco }}
-    </th>
-    <td mat-cell *matCellDef="let element">
-      <span>{{ element.id }}</span>
-    </td>
-  </ng-container>
 
   <ng-container matColumnDef="user_id">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>
       {{ 'features.folders.table.owner' | transloco }}
     </th>
     <td mat-cell *matCellDef="let element">
-      <span>{{ element.user_id }}</span>
+      <span>{{ element.user.item_text }}</span>
     </td>
   </ng-container>
 

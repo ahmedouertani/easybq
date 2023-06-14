@@ -1,25 +1,89 @@
+@use "@angular/material" as mat;
+
+@include mat.core();
+
+$primary: #5086ec;
+$primary-lighter: #88abeb;
+$primary-darker: #345798;
+$white: white;
+
+$secondary : #3c4043;
+$secondary-lighter : #898989;
+
+$fontPoppins :'Poppins', sans-serif;
+
+$easybq: (
+  main: $primary,
+  darker: $primary-darker,
+  lighter: $primary-lighter,
+  contrast: (main: $white,
+    darker: $white,
+    lighter: rgb(black, 0.87),
+  ),
+);
+
+$easybq-primary: mat.define-palette($easybq, main, lighter, darker);
+$easybq-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$easybq-warn: mat.define-palette(mat.$red-palette);
+$easybq-theme: mat.define-light-theme((color: (primary: $easybq-primary,
+        accent: $easybq-accent,
+        warn: $easybq-warn,
+      ),
+    ));
+
+@include mat.all-component-themes($easybq-theme);
+
+* {
+  box-sizing: border-box;
+}
+
+
 body {
-  padding: 0;
-  margin: 0;
-  background-color: whitesmoke;
+  background-color: #fdfdfd;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+pre,
+span,
+table,
+body{
+  font-family: $fontPoppins !important;
 }
 
 /**
  * Override Material Design Components styles
  */
-.dense-form-field {
+.dense-form-field , .language-select{
+  margin: 0.5rem;
   .mat-mdc-form-field-infix {
     padding-top: 4px !important;
     padding-bottom: 4px !important;
     display: flex;
     justify-content: center;
     align-items: center;
+    // min-height: 32px;
+  }
+}
+.language-select{
+  .mat-mdc-form-field-infix {
     min-height: 32px;
+  }
+  .mat-mdc-form-field-subscript-wrapper{
+    display: none;
   }
 }
 
-.button[mat-icon-button] {
+button[mat-icon-button] {
   border-radius: 50%;
+  display: flex;
 }
 
 .bottom-sheet-without-padding {
@@ -59,6 +123,7 @@ body {
   -moz-transform: rotateZ(360deg) !important;
   transform: rotateZ(360deg) !important;
 }
+
 .blue-button {
   position: absolute;
   top: 50%;
@@ -81,3 +146,132 @@ body {
 .blue-button:hover {
   background-color: #139191 !important;
 }
+
+button[mat-flat-button] {
+  font-family: $fontPoppins ;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  border: none;
+  font-size: 0.8rem;
+  font-weight: 400;
+  min-width: 12rem;
+}
+
+.btn-form{
+  button{
+    min-width: 100%;
+    width: 100%;
+  }
+}
+
+.btn-setting{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  button{
+    min-width: 12rem;
+
+  }
+}
+
+
+
+/*** style all pages ***/
+// title h1
+h1{
+  font-size: 1.4rem !important;
+  color: $primary;
+  font-weight: 600 !important;
+}
+h2{
+  font-size: 1.1rem;
+  color: #858689;
+}
+.h2-title{
+  margin-top: 32px;
+}
+
+.btn-add {
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  h1{
+    margin: 0;
+  }
+}
+.btn-back{
+  cursor: pointer;
+  text-decoration: none;
+  width: 3rem;
+  height: 2rem;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  color: #5086ec;
+}
+.back-and-title{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+mat-card{
+  padding: 24px 16px;
+  h2{
+    margin-bottom: 1.5rem;
+  }
+}
+
+
+table{
+
+  .mat-mdc-header-cell{
+    color: $primary;
+  }
+  .mat-mdc-cell{
+    button[mat-icon-button] {
+      background-color: #5086ec1a;
+      margin: 0.2rem;
+      color: $primary;
+      scale: 0.9;
+    }
+    color: $secondary;
+  }
+}
+
+.table-user-information {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.table-user-information th,
+.table-user-information td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.table-user-information th {
+  text-align: left;
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.table-user-information td {
+  vertical-align: top;
+}
+
+.span-color {
+  color: #333;
+}
+
+.glyphicon {
+  margin-right: 5px;
+}
+
+

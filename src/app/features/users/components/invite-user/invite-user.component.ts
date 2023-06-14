@@ -67,6 +67,12 @@ import { TranslocoModule } from "@ngneat/transloco";
       display: flex;
       flex-direction: column;
     }
+    
+    span{
+      color: #5086ec;
+      font-weight: 500;
+      font-size: 1rem;
+    }
   `],
   imports: [
     NgIf,

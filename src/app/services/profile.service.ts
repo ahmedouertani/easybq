@@ -10,6 +10,9 @@ import {
 import { Router } from '@angular/router';
 import { Profile } from '../models/profile.model';
 import { Auth } from '@angular/fire/auth';
+import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -18,18 +21,20 @@ export class ProfileService {
   private readonly firestore = inject(Firestore);
   private readonly router = inject(Router);
   private readonly auth = inject(Auth);
+  private readonly http = inject(HttpClient);
+
 
   public profile: Profile;
   public async fetchProfile(user): Promise<Profile> {
     const queryResult = await this.checkAdmin(user?.uid);
     const userData = await this.getUser(user);
 
-    // Check if no documents were found in 'admin_BQDS' collection and no user document was found in 'users' subcollection
+    // Check if no documents were found in 'membership_BQDS' collection and no user document was found in 'users' subcollection
     if (queryResult!.docs.length === 0 && !userData?.data()) {
       // If no documents found, navigate to the sign-in page
       this.router.navigate(['/sign-in']);
     } else if (queryResult!.docs.length > 0) {
-      // Use the user document from 'admin_BQDS' collection as the profile
+      // Use the user document from 'membership_BQDS' collection as the profile
       this.profile = queryResult.docs[0].data() as Profile;
     } else {
       // Use the user document from 'users' subcollection as the profile
@@ -78,9 +83,9 @@ export class ProfileService {
   }
 
   public async checkAdmin(uid) {
-    // Query the 'admin_BQDS' collection to get documents where 'uid' matches the given 'uid'
+    // Query the 'membership_BQDS' collection to get documents where 'uid' matches the given 'uid'
     const queryResult = await getDocs(
-      query(collection(this.firestore, 'admin_BQDS'), where('uid', '==', uid))
+      query(collection(this.firestore, 'membership_BQDS'), where('uid', '==', uid))
     );
     return queryResult;
   }
@@ -102,5 +107,30 @@ export class ProfileService {
      );
      return userData;
    }
+  }
+
+  async getUserRole(){
+    const queryResult = await getDocs(
+      query(collection(this.firestore, 'membership_BQDS'), where('uid', '==', this.auth.currentUser?.uid))
+    );
+
+    // Extract the role from the first document in the query result
+    const currentUser = queryResult.docs[0].data();
+
+    return currentUser['role'];
+  }
+
+  public getStatusAS(): Observable<any> {
+    return this.http
+      .get(
+        `${environment.apiUrl}/get_status_account_service/${this.profile.idDomaine}`
+      );
+  }
+
+  public getDomaineName(): Observable<any> {
+    return this.http
+      .get(
+        `${environment.apiUrl}/get_namespace_by_id/${this.profile.idDomaine}`
+      );
   }
 }

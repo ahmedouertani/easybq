@@ -1,0 +1,26 @@
+// chips css
+.type-chip {
+  padding: 0.1rem 0.2rem;
+  border-radius: 0.3rem;
+  font-size: 0.875rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 6rem;
+}
+
+.write {
+  background-color: #f9fab9;
+  color: #c0c031;
+}
+
+.overwrite {
+  background-color: #C9F7F5;
+  color: #1BC5BD;
+}
+
+.append {
+  background-color: #FFF4DE;
+  color: #FFA800;
+}

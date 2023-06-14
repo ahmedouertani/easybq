@@ -1,5 +1,4 @@
 export interface Profile {
-  id:string;
   uid: string;
   email: string;
   role: UserRole;

@@ -1,0 +1,16 @@
+@import '../../../assets/styles/mixin.scss';
+
+$secondary : #3c4043;
+
+:host {
+  @extend .center;
+  padding-top: 64px;
+  width: 100%;
+  height: calc(100vh - 4rem);
+  padding: 1rem;
+}
+
+mat-card{
+  @include auth-card-template();
+}
+

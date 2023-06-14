@@ -1,9 +1,9 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable, inject } from "@angular/core";
-import { Observable } from "rxjs";
-import { environment } from "../../../../environments/environment";
-import { Folder } from "../models/folders.model";
-import { ProfileService } from "../../../services/profile.service";
+import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from '../../../../environments/environment';
+import { Folder } from '../models/folders.model';
+import { ProfileService } from '../../../services/profile.service';
 
 @Injectable()
 export class FoldersService {
@@ -11,26 +11,40 @@ export class FoldersService {
   private readonly profileService = inject(ProfileService);
 
   public fetchFolders(): Observable<Folder[]> {
-    return this.http
-      .get<Folder[]>(`${environment.apiUrl}/list_folders/${this.profileService.profile.idDomaine}`);
+    return this.http.get<Folder[]>(
+      `${environment.apiUrl}/list_folders/${this.profileService.profile.idDomaine}`
+    );
   }
 
   public createFolder(name: string): Observable<void> {
     const folder: Folder = { name, id: '', user_id: '', created_on: '' };
-    return this.http
-      .post<void>(`${environment.apiUrl}/create_folder/${this.profileService.profile.idDomaine}`, folder);
+    return this.http.post<void>(
+      `${environment.apiUrl}/create_folder/${this.profileService.profile.idDomaine}`,
+      folder
+    );
   }
 
   public deleteFolder(folderId: string): Observable<void> {
-    return this.http
-      .delete<void>(`${environment.apiUrl}/delete_folder/${this.profileService.profile.idDomaine}/${folderId}`);
+    return this.http.delete<void>(
+      `${environment.apiUrl}/delete_folder/${this.profileService.profile.idDomaine}/${folderId}`
+    );
   }
 
   public updateFolder(folderId: string, data: string): Observable<void> {
-    return this.http
-      .put<void>(
-        `${environment.apiUrl}/update_folder/${this.profileService.profile.idDomaine}/${folderId}`,
-        data
-      );
+    return this.http.put<void>(
+      `${environment.apiUrl}/update_folder/${this.profileService.profile.idDomaine}/${folderId}`,
+      data
+    );
+  }
+
+  public fetchFoldersByUser(uid: string): Observable<Folder[]> {
+    return this.http.get<Folder[]>(
+      `${environment.apiUrl}/get_list_folder_by_use_id/${this.profileService.profile.idDomaine}/${uid}`
+    );
+  }
+  public checkActivatedAccount(): Observable<any> {
+    return this.http.get(
+      `${environment.apiUrl}/get_email_account_service/${this.profileService.profile.idDomaine}`
+    );
   }
 }

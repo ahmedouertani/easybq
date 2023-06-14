@@ -34,7 +34,6 @@ export class FolderTableComponent extends AbstractTableComponent<Folder> {
     'name',
     'user_id',
     'created_on',
-    'id',
     'actions'
   ];
 

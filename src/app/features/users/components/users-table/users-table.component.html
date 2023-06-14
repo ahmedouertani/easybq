@@ -38,7 +38,7 @@
       {{ 'features.users.table.added_at' | transloco }}
     </th>
     <td mat-cell *matCellDef="let element">
-      <span>{{ element.created_on }}</span>
+      <span>{{ element.created_on | date:'mediumDate'}}</span>
     </td>
   </ng-container>
 

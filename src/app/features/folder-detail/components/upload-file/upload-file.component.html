@@ -7,17 +7,80 @@
     </button>
   </mat-toolbar-row>
 </mat-toolbar>
+<form class="create-folder-form" [formGroup]="formGroup" (ngSubmit)="uploadFile()">
+  <mat-form-field appearance="outline">
+    <mat-label>{{ "features.tables.add-dialog.title" | transloco }}</mat-label>
+    <input matInput formControlName="table_name" />
+    <mat-error *ngIf="formGroup.get('table_name')?.hasError('required')">
+      {{ "common.form.required" | transloco }}
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>{{
+      "features.tables.add-dialog.field_delimiter" | transloco
+      }}</mat-label>
+    <mat-select formControlName="field_delimiter">
+      <mat-option value=",">{{
+        "features.tables.add-dialog.comma" | transloco
+        }}</mat-option>
+      <mat-option value=" ">{{
+        "features.tables.add-dialog.tabulation" | transloco
+        }}</mat-option>
+      <mat-option value="perso">{{
+        "features.tables.add-dialog.perso" | transloco
+        }}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="formGroup.get('field_delimiter')?.hasError('required')">
+      {{ "common.form.required" | transloco }}
+    </mat-error>
+  </mat-form-field>
 
-<div class="upload-file-form">
-  <input type="file" class="file-input" accept=".csv" (change)="onFileSelected($event)" #fileUpload>
-  <div class="file-upload">
-    <button mat-icon-button color="primary" (click)="fileUpload.click()">
-      <mat-icon>attach_file</mat-icon>
-    </button>
-    <div (click)="fileUpload.click()" class="file-name">
-      {{ file?.name || ('common.form.empty-file' | transloco) }}
+  <ng-container *ngIf="formGroup.get('field_delimiter')?.value === 'perso'">
+    <mat-form-field appearance="outline">
+      <mat-label>{{
+        "features.tables.add-dialog.custom" | transloco
+        }}</mat-label>
+      <input matInput formControlName="custom_field_delimiter" />
+      <mat-error *ngIf="formGroup.get('custom_field_delimiter')?.hasError('required')">
+        {{ "common.form.required" | transloco }}
+      </mat-error>
+      <mat-error *ngIf="formGroup.get('custom_field_delimiter')?.hasError('maxlength')">
+        {{
+        "features.folder-detail.costum" | transloco
+        }}
+      </mat-error>
+    </mat-form-field>
+  </ng-container>
+
+
+  <mat-form-field appearance="outline">
+    <mat-label>{{
+      "features.tables.add-dialog.skip_leading_rows" | transloco
+      }}</mat-label>
+    <input matInput formControlName="skip_leading_rows" type="number" />
+    <mat-error *ngIf="formGroup.get('skip_leading_rows')?.hasError('required')">
+      {{ "common.form.required" | transloco }}
+    </mat-error>
+  </mat-form-field>
+  <div class="upload-file-form">
+    <div class="upload-zone">
+      <input type="file" class="file-input"
+        accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+        (change)="onFileSelected($event)" #fileUpload />
+
+      <div (click)="fileUpload.click()" class="file-name">
+        <img src="../../../../../assets/images/csv.png" (click)="fileUpload.click()" />
+        {{ file?.name || ("common.form.empty-file" | transloco) }}
+      </div>
     </div>
   </div>
+  <mat-progress-bar *ngIf="FileProgessSize" mode="determinate" [value]="percentDone"></mat-progress-bar>
+  <div *ngIf="FileProgessSize">
+    {{ FileProgessSize }} of {{ fileSize }}
+  </div>
+  <button mat-flat-button color="primary" type="submit" [disabled]="loader ||( !formGroup.valid || !file)">
+    {{ "features.folders.add-dialog.action" | transloco }}
+    <mat-icon *ngIf="loader"><mat-spinner color='#5086ec' diameter="18"></mat-spinner></mat-icon>
 
-  <button mat-flat-button color="primary" [disabled]="!file" (click)="close()">Envoyer</button>
-</div>
+  </button>
+</form>

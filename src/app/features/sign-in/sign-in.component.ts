@@ -5,35 +5,16 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { GoogleAuthProvider, Unsubscribe } from "firebase/auth";
 import { take } from "rxjs";
 import { AuthService } from "./services/auth.service";
+import { MatCardModule } from "@angular/material/card";
 
 @Component({
   standalone: true,
   selector: 'app-sign-in',
-  template: `
-    <button  mat-raised-button (click)="signInWithGoogle()">
-      <div class="text-with-icon">
-        <img src="assets/images/google.svg" height="28" />
-        <span>Continue with Google</span>
-      </div>
-    </button>
-  `,
-  styles: [`
-    :host {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding-top: 64px;
-    }
-
-    .text-with-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-    }
-  `],
+  templateUrl: './sign-in.component.html',
+  styleUrls: ['./sign-in.component.scss'],
   imports: [
     MatButtonModule,
+    MatCardModule
   ]
 })
 export class SignInComponent implements OnInit, OnDestroy {
@@ -60,7 +41,7 @@ signInWithPopup(this.auth, provider)
       this.router.navigate(['/folders']);
     } else {
       // If the user is not authorized, navigate to the 'not-authorized' route
-      this.router.navigate(['not-authorized']);
+      this.router.navigate(['create-domaine']);
     }
   });
 });

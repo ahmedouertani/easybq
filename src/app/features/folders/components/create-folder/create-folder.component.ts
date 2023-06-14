@@ -34,9 +34,11 @@ import { TranslocoModule } from "@ngneat/transloco";
           {{ 'common.form.required' | transloco }}
         </mat-error>
       </mat-form-field>
+      <span class="btn-form">
       <button mat-flat-button color="primary" type="submit" [disabled]="!formGroup.valid">
         {{ 'features.folders.add-dialog.action' | transloco }}
       </button>
+</span>
     </form>
   `,
   styles: [`
@@ -50,6 +52,11 @@ import { TranslocoModule } from "@ngneat/transloco";
       padding: 16px;
       display: flex;
       flex-direction: column;
+    }
+    span{
+      color: #5086ec;
+      font-weight: 500;
+      font-size: 1rem;
     }
   `],
   imports: [

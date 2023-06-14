@@ -1,0 +1,70 @@
+import { HttpClient, HttpHeaders, HttpXhrBackend } from "@angular/common/http";
+import { Injectable, inject } from "@angular/core";
+import { Observable } from "rxjs";
+import { ProfileService } from "../../../services/profile.service";
+import { environment } from "../../../../environments/environment";
+import { getAuth } from "@angular/fire/auth";
+
+@Injectable()
+export class FileDetailService {
+  private readonly profileService = inject(ProfileService);
+  private readonly http = inject(HttpClient);
+  private httpClient: HttpClient;
+  private initializeHttpClient() {
+    // Create an instance of HttpXhrBackend
+    const backend = new HttpXhrBackend({ build: () => new XMLHttpRequest() });
+
+    // Initialize the httpClient using the backend
+    this.httpClient = new HttpClient(backend);
+  }
+
+  public uploadFile(folderId,uploadedFile: FormData ): Observable<any> {
+    if (!this.httpClient) {
+      // If httpClient is not initialized, call the initializeHttpClient() method
+      this.initializeHttpClient();
+    }
+
+    // Get the domaineId and accessToken
+    const domaineId = this.profileService.profile.idDomaine;
+    let token: any = getAuth().currentUser;
+    let accessToken = token.accessToken;
+
+    // Set the headers with the authorization token
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + accessToken,
+      }),
+    };
+
+    // Remove the "Content-Type" header from the headers
+    httpOptions.headers.delete('Content-Type');
+
+    // Make the POST request using the initialized httpClient
+
+    return this.httpClient.post(
+      `${environment.apiUrl}/upload_table_file/${domaineId}/` + folderId,
+      uploadedFile,
+      httpOptions
+    );
+  }
+
+  public fetchTables(folderId: string): Observable<any> {
+    return this.http
+      .get(
+        `${environment.apiUrl}/get_tables/${this.profileService.profile.idDomaine}/${folderId}`
+      );
+  }
+
+  public fetchFiles(folderId: string, tableId:string): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/get_files/${this.profileService.profile.idDomaine}/${folderId}/${tableId}`);
+  }
+
+  public fetchFileOverview(folderId: string , tableId: string): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/get_table_bq_content/${this.profileService.profile.idDomaine}/${folderId}/${tableId}`);
+  }
+
+
+  public fetchFileSchema(folderId: string , tableId: string): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/get_schema/${this.profileService.profile.idDomaine}/${folderId}/${tableId}`);
+  }
+}
