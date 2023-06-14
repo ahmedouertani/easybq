@@ -108,12 +108,12 @@
             "scripts": []
           }
         }
-      },"i18n": {
+      },
+      "i18n": {
         "sourceLocale": "en-US",
         "fallbackLocale": "en"
       }
     }
   },
   "defaultProject": "easy-bq"
-
 }
