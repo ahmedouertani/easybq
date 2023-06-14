@@ -18,7 +18,7 @@ pipeline {
             steps {
                 echo 'checking GitHub Repo'
                 git branch: 'main',
-                url: 'https://github.com/ahmedouertani/easybb.git'
+                url: 'https://github.com/ahmedouertani/easybq.git'
             }
         }
 
