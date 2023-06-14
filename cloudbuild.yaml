@@ -4,7 +4,7 @@ steps:
 - name: 'gcr.io/cloud-builders/npm:node-16.18.0'
   args: ['run', 'build']
 - name: 'gcr.io/cloud-builders/gcloud'
-  args: ['app', 'deploy', '--appyaml=app.yaml','--ignore-file=.gcloudignore', '--no-promote']
+  args: ['app', 'deploy', '--appyaml=app.yaml', '--no-promote']
 - name: 'google/cloud-sdk'
   entrypoint: 'bash'
   args: ['-c', 'ls -lR dist']
