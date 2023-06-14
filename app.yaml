@@ -8,9 +8,9 @@ env_variables:
   DEBUG: True
 
 handlers:
-  - url: /(.*\.(gif|png|jpg|css|js|scss|svg|ico)(|\.map))$
+  - url: /(.*\.[A-Za-z0-9]{1,4})$
     static_files: dist/easy-bq\1
-    upload: dist/.*\.(gif|png|jpg|css|js|scss|svg|ico)(|.map)
+    upload: dist//easy-bq/(.*\.[A-Za-z0-9]{1,4})$
   - url: /(.*)$
     static_files: dist/easy-bq/index.html
     upload: dist/easy-bq/index.html
