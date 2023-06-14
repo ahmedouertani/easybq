@@ -70,7 +70,7 @@ stage('UploadArtifactNexusRAW') {
         sh 'npm run build'
 
         // Déployer l'artefact sur Nexus
-        sh 'curl -v -u admin:bouhmidenaey97 --upload-file C:/Users/Ameni AKKERI/Documents/GitHub/easybb/dist/TanitLab/* http://192.168.1.103:8081/repository/raw-repo/'
+        sh 'curl -v -u admin:bouhmidenaey97 --upload-file C:/Users/Ameni AKKERI/Documents/GitHub/easybq/dist/TanitLab/* http://192.168.1.103:8081/repository/raw-repo/'
     }
 }
 
@@ -82,7 +82,7 @@ stage('UploadArtifactNexusRAW') {
       sh 'npm run build'
 
         // Déployer l'artefact sur Nexus
-      sh 'curl -v -u admin:bouhmidenaey97 --upload-file C:/Users/Ameni AKKERI/Documents/GitHub/easybb/tanitlab-1.0.0.tgz http://192.168.1.103:8081/repository/npm-repo/'
+      sh 'curl -v -u admin:bouhmidenaey97 --upload-file C:/Users/Ameni AKKERI/Documents/GitHub/easybq/tanitlab-1.0.0.tgz http://192.168.1.103:8081/repository/npm-repo/'
     
   }
 }*/
