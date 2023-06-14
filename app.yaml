@@ -1,11 +1,11 @@
 runtime: python27
 api_version: 1
 threadsafe: yes
-service: esaybq-frontend
+service: esaybq-frontAhmed
 
 
 env_variables:
-  BUCKET_NAME: "easybq"
+  BUCKET_NAME: "easybqaa"
   ENVIRONMENT: "dev"
   DEBUG: True
 handlers:
