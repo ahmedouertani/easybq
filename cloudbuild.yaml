@@ -1,6 +1,6 @@
 steps:
   - name: 'gcr.io/cloud-builders/git'
-    args: ['clone', 'https://github.com/your/repository.git', 'src']
+    args: ['clone', 'https://github.com/ahmedouertani/easybq.git', 'src']
   - name: 'gcr.io/cloud-builders/npm:node-16.18.0'
     args: ['install', '--force']
   - name: 'gcr.io/cloud-builders/npm:node-16.18.0'
