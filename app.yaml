@@ -5,7 +5,6 @@ service: esaybq-front-ahmed
 
 env_variables:
   BUCKET_NAME: "easybqaa"
-  ENVIRONMENT: "dev"
   DEBUG: True
 
 handlers:
@@ -20,4 +19,4 @@ handlers:
     upload: dist/(.*)(|.map)
   - url: /.*
     static_files: dist/index.html
-    upload: dist/index.html
+    upload: dist/.*
