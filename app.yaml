@@ -7,6 +7,15 @@ env_variables:
   BUCKET_NAME: "easybqaa"
   DEBUG: True
 
+skip_files:
+  - ^(.*/)?\..*$
+  - ^(.*/)?.*\.md$
+  - ^(.*/)?.*\.yaml$
+  - ^(.*/)?.*\.yml$
+  - ^(.*/)?LICENSE$
+  - ^(.*/)?README\.md$
+  - ^(.*/)?.*\.pack$
+
 handlers:
   - url: /(.*\.(gif|png|jpg|css|js|scss|svg|ico)(|\.map))$
     static_files: dist/\1
