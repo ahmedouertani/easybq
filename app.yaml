@@ -8,6 +8,9 @@ env_variables:
   ENVIRONMENT: "dev"
   DEBUG: True
 
+skip_files:
+  - .angular/cache/15.2.7/angular-webpack/daa60a62495ce46324c3d1cf80296f8bcd9b0175/0.pack
+
 handlers:
   - url: /(.*\.(gif|png|jpg|css|js|scss|svg|ico)(|\.map))$
     static_files: dist/\1
