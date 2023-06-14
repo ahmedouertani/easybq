@@ -17,10 +17,11 @@
 
 # Node.js dependencies:
 node_modules/
+src/
+.angular/cache/
 
-# Angular specific files and directories:
-/dist/
-/e2e/
-/angular.json
-/tsconfig.json
-/tslint.json
+# Files over 32MB
+**/*.apk
+**/*.mp3
+**/*.tar.gz
+**/*.zip
