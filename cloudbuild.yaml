@@ -1,26 +1,11 @@
-runtime: python27
-api_version: 1
-threadsafe: yes
-service: esaybq-front-ahmed
-
-env_variables:
-  BUCKET_NAME: "easybqaa"
-  ENVIRONMENT: "dev"
-  DEBUG: True
-
-skip_files:
-  - .angular/cache/15.2.7/angular-webpack/daa60a62495ce46324c3d1cf80296f8bcd9b0175/0.pack
-
-handlers:
-  - url: /(.*\.(gif|png|jpg|css|js|scss|svg|ico)(|\.map))$
-    static_files: dist/\1
-    upload: dist/.*\.(gif|png|jpg|css|js|scss|svg|ico)(|.map)
-  - url: /(.*)$
-    static_files: dist/index.html
-    upload: dist/index.html
-  - url: /(.*\.(js|css|svg|png)(|\.map))$
-    static_files: dist/\1
-    upload: dist/(.*)(|.map)
-  - url: /.*
-    static_files: dist/index.html
-    upload: dist/index.html
+steps:
+- name: 'gcr.io/cloud-builders/npm:node-16.18.0'
+  args: ['install','--force']
+- name: 'gcr.io/cloud-builders/npm:node-16.18.0'
+  args: ['run', 'build']
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['app', 'deploy', '--appyaml=app.yaml','--ignore-file=.gcloudignore', '--no-promote']
+- name: 'google/cloud-sdk'
+  entrypoint: 'bash'
+  args: ['-c', 'ls -lR dist']
+timeout: '3000s'
