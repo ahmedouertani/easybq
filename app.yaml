@@ -1,23 +1,23 @@
 runtime: python27
 api_version: 1
 threadsafe: yes
-service: esaybq-frontAhmed
-
+service: esaybq-front-ahmed
 
 env_variables:
   BUCKET_NAME: "easybqaa"
   ENVIRONMENT: "dev"
   DEBUG: True
+
 handlers:
   - url: /(.*\.(gif|png|jpg|css|js|scss|svg|ico)(|\.map))$
-    static_files: dist/easy-bq/\1
-    upload: dist/easy-bq/.*\.(gif|png|jpg|css|js|scss|svg|ico)(|.map)
+    static_files: dist/\1
+    upload: dist/.*\.(gif|png|jpg|css|js|scss|svg|ico)(|.map)
   - url: /(.*)$
-    static_files: dist/easy-bq/index.html
-    upload: dist/easy-bq/index.html
+    static_files: dist/index.html
+    upload: dist/index.html
   - url: /(.*\.(js|css|svg|png)(|\.map))$
-    static_files: dist/easy-bq/\1
-    upload: dist/easy-bq/(.*)(|\.map)
+    static_files: dist/\1
+    upload: dist/(.*)(|.map)
   - url: /.*
-    static_files: dist/easy-bq/index.html
-    upload: dist/easy-bq/index.html
+    static_files: dist/index.html
+    upload: dist/index.html

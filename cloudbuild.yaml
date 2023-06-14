@@ -3,10 +3,8 @@ steps:
   args: ['install','--force']
 - name: 'gcr.io/cloud-builders/npm:node-16.18.0'
   args: ['run', 'build']
-- name: 'gcr.io/cloud-builders/gsutil'
-  args: ['-m', 'cp', '-r', 'dist', 'gs://bqls-test217.appspot.com']
 - name: 'gcr.io/cloud-builders/gcloud'
-  args: ['app', 'deploy', '--appyaml=app.yaml','--ignore-file=.gcloudignore' ]
+  args: ['app', 'deploy', '--appyaml=app.yaml','--ignore-file=.gcloudignore', '--no-promote']
 - name: 'google/cloud-sdk'
   entrypoint: 'bash'
   args: ['-c', 'ls -lR dist']

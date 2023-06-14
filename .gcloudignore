@@ -6,6 +6,7 @@
 # For more information, run:
 #   $ gcloud topic gcloudignore
 #
+
 .gcloudignore
 
 # If you would like to upload your .git directory, .gitignore file or files
@@ -16,10 +17,10 @@
 
 # Node.js dependencies:
 node_modules/
-src/
-.angular/cache/
-# Files over 32MB
-**/*.apk
-**/*.mp3
-**/*.tar.gz
-**/*.zip
+
+# Angular specific files and directories:
+/dist/
+/e2e/
+/angular.json
+/tsconfig.json
+/tslint.json
