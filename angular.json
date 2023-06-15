@@ -86,7 +86,7 @@
             "options": {
               "proxyConfig": "src/proxy.conf.json",
               "devServer": {
-                "allowedHosts": "all"
+              "disableHostCheck": true
               }
             }
           },
