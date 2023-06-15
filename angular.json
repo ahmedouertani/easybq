@@ -75,11 +75,11 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "easy-bq:build:production",
+              "browserTarget": "easybq:build:production",
               "proxyConfig": "src/proxy.conf.json"
             },
             "development": {
-              "browserTarget": "easy-bq:build:development",
+              "browserTarget": "easybq:build:development",
               "proxyConfig": "src/proxy.conf.json"
             },
             "options": {
@@ -91,7 +91,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "easy-bq:build"
+            "browserTarget": "easybq:build"
           }
         },
         "test": {
@@ -110,10 +110,7 @@
         }
       },
       "i18n": {
-        "sourceLocale": "en-US",
-        "fallbackLocale": "en"
-      }
+        "sourceLocale": "en-US"      }
     }
-  },
-  "defaultProject": "easy-bq"
+  }
 }
