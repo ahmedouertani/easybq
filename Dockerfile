@@ -1,8 +1,6 @@
-FROM node:14 as builder
-
+FROM node:14 AS builder
 
 COPY . /easybq
-
 
 RUN apt-get -y update && \
     apt-get install -y curl 
