@@ -94,13 +94,13 @@ stage('Vérifier la configuration du registre npm') {
   }
 }*/
 
-       stage('BuildDockerImage') {
+       /*stage('BuildDockerImage') {
             steps {
                 script {
                     def dockerImage = docker.build('bouhmiid/easybq99', '.')
                 }
             }
-        }
+        }*/
 
         stage ('loginDockerhub') {
             steps{
