@@ -84,10 +84,10 @@
               "proxyConfig": "src/proxy.conf.json"
             },
             "options": {
-              "proxyConfig": "src/proxy.conf.json",
-              "devServer": {
-              "disableHostCheck": true
-              }
+              "proxyConfig": "src/proxy.conf.json"
+              //"devServer": {
+                //"allowedHosts": "all"
+              //}
             }
           },
           "defaultConfiguration": "development"
