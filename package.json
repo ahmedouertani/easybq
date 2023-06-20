@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "sonar": "sonar-scanner"
+    "sonar-scanner": "sonar-scanner"
 
   },
   "private": true,
