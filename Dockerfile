@@ -1,4 +1,4 @@
-FROM node:14
+FROM node:14 as builder
 
 
 COPY . /easybq
