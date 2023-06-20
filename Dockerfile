@@ -1,12 +1,11 @@
 FROM debian:bullseye
 
-
 COPY . /easybq
 
 
-RUN apt-get -y update && \
-    apt-get -y upgrade && \
-    apt-get install -y curl 
+RUN apt-get -y --no-update upgrade && \
+    apt-get install -y --no-install-recommends curl
+    
 RUN curl -sL https://deb.nodesource.com/setup_18.x -o nodesource_setup.sh && \
     sh ./nodesource_setup.sh
 RUN apt install nodejs 
