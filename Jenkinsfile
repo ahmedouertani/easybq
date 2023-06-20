@@ -104,7 +104,7 @@ stage('Vérifier la configuration du registre npm') {
 
         stage ('loginDockerhub') {
             steps{
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                sh 'cat dockerhub_password.txt | docker login -u bouhmiid --password-stdin'
             }
         }
 
