@@ -36,6 +36,13 @@ pipeline {
     }
 }
 
+
+stage('Vérifier la configuration du registre npm') {
+    steps {
+        sh 'npm config list'
+    }
+}
+
         stage('InstallDependencies') { //Installer les dépendances du projet
             steps {
                 sh 'npm install'
