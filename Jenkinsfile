@@ -3,11 +3,11 @@ pipeline {
 
     environment {        
         DOCKERHUB_CREDENTIALS = credentials ('bouhmiid-dockerhub')
-        SONAR_HOST_URL = "http://192.168.1.103:9000"
+        SONAR_HOST_URL = "http://192.168.1.122:9000"
 
         NEXUS_VERSION = "nexus3"
         NEXUS_PROTOCOL = "http"
-        NEXUS_URL = "http://192.168.1.103:8081"
+        NEXUS_URL = "http://192.168.1.122:8081"
         NEXUS_REPOSITORY = "raw-repo"
         NEXUS_CREDENTIAL_ID = "nexustanitlab"
     }
@@ -32,7 +32,7 @@ pipeline {
         }
         stage('SetNpmRegistry') {
     steps {
-        sh 'npm config set registry http://192.168.1.103:8081/'
+        sh 'npm config set registry http://192.168.1.122:8081/'
     }
 }
 
@@ -65,24 +65,24 @@ pipeline {
 stage('UploadArtifactNexusRAW') {
     steps {
         // Reste des étapes de déploiement des artefacts
-        sh 'npm config set registry http://192.168.1.103:8081'
+        sh 'npm config set registry http://192.168.1.122:8081'
         sh 'npm install'
         sh 'npm run build'
 
         // Déployer l'artefact sur Nexus
-        sh 'curl -v -u admin:bouhmidenaey97 --upload-file C:/Users/Ameni AKKERI/Documents/GitHub/easybq/dist/TanitLab/* http://192.168.1.103:8081/repository/raw-repo/'
+        sh 'curl -v -u admin:bouhmidenaey97 --upload-file C:/Users/Ameni AKKERI/Documents/GitHub/easybq/dist/TanitLab/* http://192.168.1.122:8081/repository/raw-repo/'
     }
 }
 
 /*stage('DeploytoNexus 2') {
   steps {
 
-      sh 'npm config set registry http://192.168.1.103:8081'
+      sh 'npm config set registry http://192.168.1.122:8081'
       sh 'npm install'
       sh 'npm run build'
 
         // Déployer l'artefact sur Nexus
-      sh 'curl -v -u admin:bouhmidenaey97 --upload-file C:/Users/Ameni AKKERI/Documents/GitHub/easybq/tanitlab-1.0.0.tgz http://192.168.1.103:8081/repository/npm-repo/'
+      sh 'curl -v -u admin:bouhmidenaey97 --upload-file C:/Users/Ameni AKKERI/Documents/GitHub/easybq/tanitlab-1.0.0.tgz http://192.168.1.122:8081/repository/npm-repo/'
     
   }
 }*/
@@ -90,12 +90,12 @@ stage('UploadArtifactNexusRAW') {
 /*stage('UploadArtifactNexusNPM') {
     steps {
         // Reste des étapes de déploiement des artefacts
-        sh 'npm config set registry http://192.168.1.103:8081'
+        sh 'npm config set registry http://192.168.1.122:8081'
         sh 'npm install'
         sh 'npm run build'
 
         // Déployer l'artefact sur Nexus
-        sh 'curl -v -u admin:bouhmidenaey97 --upload-file dist/TanitLab/* http://192.168.1.103:8081/repository/npm-repo/'
+        sh 'curl -v -u admin:bouhmidenaey97 --upload-file dist/TanitLab/* http://192.168.1.122:8081/repository/npm-repo/'
     }
 }*/
 
