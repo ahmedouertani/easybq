@@ -32,7 +32,7 @@ pipeline {
         }
         stage('SetNpmRegistry') {
     steps {
-        sh 'npm config set registry http://192.168.1.122:8081/'
+        sh 'npm config set registry https://registry.npmjs.org/'
     }
 }
 
