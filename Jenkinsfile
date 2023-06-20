@@ -57,7 +57,7 @@ stage('Vérifier la configuration du registre npm') {
         stage('ExcuteSonarQubeReport') { //Installer les dépendances du projet
             steps {
                 //nodejs(nodeJSInstallationName: 'nodejs-14'){
-                sh 'npm run sonar'
+                sh 'npm run sonar-scanner'
             }
         }
 
