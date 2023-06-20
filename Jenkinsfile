@@ -94,27 +94,19 @@ stage('Vérifier la configuration du registre npm') {
   }
 }*/
 
-       /*stage('BuildDockerImage') {
+       stage('BuildDockerImage') {
             steps {
                 script {
                     def dockerImage = docker.build('bouhmiid/easybq99', '.')
                 }
             }
-        }*/
-
-stage('loginDockerhub') {
-    steps {
-        withCredentials([string(credentialsId: 'DOCKERHUB_CREDENTIALS_USR', variable: 'DOCKERHUB_USERNAME'),
-                         string(credentialsId: 'DOCKERHUB_CREDENTIALS_PSW', variable: 'DOCKERHUB_PASSWORD')]) {
-            sh '''
-                echo "$DOCKERHUB_PASSWORD" > dockerhub_password.txt
-                docker login -u $DOCKERHUB_USERNAME --password-stdin < dockerhub_password.txt
-                rm dockerhub_password.txt
-            '''
         }
-    }
-}
 
+        stage ('loginDockerhub') {
+            steps{
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            }
+        }
 
         stage('PushDocker') {
             steps {
