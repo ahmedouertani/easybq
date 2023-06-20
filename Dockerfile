@@ -18,3 +18,6 @@ COPY startup.sh /easybq
 WORKDIR /easybq
 RUN chmod 777 ./startup.sh
 CMD ["/bin/bash","startup.sh"]
+
+FROM nginx:alpine
+COPY --from=builder /*/dist/* /usr/share/nginx/html
