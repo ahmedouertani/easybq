@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM node:14
 
 
 COPY . /easybq
