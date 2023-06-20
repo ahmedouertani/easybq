@@ -69,7 +69,7 @@ stage('Vérifier la configuration du registre npm') {
 
  
 
-stage('UploadArtifactNexusRAW') {
+/*stage('UploadArtifactNexusRAW') {
     steps {
         // Reste des étapes de déploiement des artefacts
         sh 'npm config set registry http://192.168.1.122:8081'
@@ -79,7 +79,7 @@ stage('UploadArtifactNexusRAW') {
         // Déployer l'artefact sur Nexus
         sh 'curl -v -u admin:bouhmidenaey97 --upload-file C:/Users/Ameni AKKERI/Documents/GitHub/easybq/dist/easy-bq/* http://192.168.1.122:8081/repository/raw-repo/'
     }
-}
+}*/
 
 /*stage('DeploytoNexus 2') {
   steps {
@@ -94,23 +94,10 @@ stage('UploadArtifactNexusRAW') {
   }
 }*/
 
-/*stage('UploadArtifactNexusNPM') {
-    steps {
-        // Reste des étapes de déploiement des artefacts
-        sh 'npm config set registry http://192.168.1.122:8081'
-        sh 'npm install'
-        sh 'npm run build'
-
-        // Déployer l'artefact sur Nexus
-        sh 'curl -v -u admin:bouhmidenaey97 --upload-file dist/TanitLab/* http://192.168.1.122:8081/repository/npm-repo/'
-    }
-}*/
-
-
        stage('BuildDockerImage') {
             steps {
                 script {
-                    def dockerImage = docker.build('bouhmiid/easybq', '.')
+                    def dockerImage = docker.build('bouhmiid/easybq99', '.')
                 }
             }
         }
@@ -123,14 +110,14 @@ stage('UploadArtifactNexusRAW') {
 
         stage('PushDocker') {
             steps {
-               sh 'docker push bouhmiid/easybq:latest'
+               sh 'docker push bouhmiid/easybq99:latest'
                }
                }
 
         stage('RunDockerContainer') {
             steps {
                 script {
-                    docker.image('bouhmiid/easybq').run('-p 1411:4200')
+                    docker.image('bouhmiid/easybq99').run('-p 1200:4200')
                 }
             }
         }
