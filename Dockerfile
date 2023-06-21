@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM node:latest
 
 COPY . /easybq
 
@@ -17,7 +17,6 @@ RUN ng build
 COPY startup.sh /easybq
 WORKDIR /easybq
 RUN chmod 777 ./startup.sh
+EXPOSE 4200
 CMD ["/bin/bash","startup.sh"]
 
-FROM nginx:alpine
-COPY --from=builder /*/dist/* /usr/share/nginx/html
