@@ -68,7 +68,7 @@ stage('Vérifier la configuration du registre npm') {
 
  
 
-stage('UploadArtifactNexusRAW') {
+/*stage('UploadArtifactNexusRAW') {
     steps {
         // Reste des étapes de déploiement des artefacts
         sh 'npm config set registry http://192.168.1.122:8081'
@@ -78,7 +78,7 @@ stage('UploadArtifactNexusRAW') {
         // Déployer l'artefact sur Nexus
         sh 'curl -v -u admin:bouhmidenaey97 --upload-file C:/Users/Ameni AKKERI/Documents/GitHub/easybq/dist/* http://192.168.1.122:8081/repository/raw-repo/'
     }
-}
+}*/
 
 /*stage('DeploytoNexus 2') {
   steps {
