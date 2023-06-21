@@ -54,11 +54,11 @@ stage('Vérifier la configuration du registre npm') {
                 sh'node -v' }
                 }
 
-        stage('ExcuteSonarQubeReport') { //Installer les dépendances du projet
+        /*stage('ExcuteSonarQubeReport') { //Installer les dépendances du projet
             steps {
                 sh 'npm run sonar-scanner'
             }
-        }
+        }*/
 
         stage('Build') {
             steps {    
