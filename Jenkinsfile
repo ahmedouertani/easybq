@@ -54,12 +54,11 @@ stage('Vérifier la configuration du registre npm') {
                 sh'node -v' }
                 }
 
-        /*stage('ExcuteSonarQubeReport') { //Installer les dépendances du projet
+        stage('ExcuteSonarQubeReport') { //Installer les dépendances du projet
             steps {
-                //nodejs(nodeJSInstallationName: 'nodejs-14'){
                 sh 'npm run sonar-scanner'
             }
-        }*/
+        }
 
         stage('Build') {
             steps {    
@@ -69,7 +68,7 @@ stage('Vérifier la configuration du registre npm') {
 
  
 
-/*stage('UploadArtifactNexusRAW') {
+stage('UploadArtifactNexusRAW') {
     steps {
         // Reste des étapes de déploiement des artefacts
         sh 'npm config set registry http://192.168.1.122:8081'
@@ -77,9 +76,9 @@ stage('Vérifier la configuration du registre npm') {
         sh 'npm run build'
 
         // Déployer l'artefact sur Nexus
-        sh 'curl -v -u admin:bouhmidenaey97 --upload-file C:/Users/Ameni AKKERI/Documents/GitHub/easybq/dist/easy-bq/* http://192.168.1.122:8081/repository/raw-repo/'
+        sh 'curl -v -u admin:bouhmidenaey97 --upload-file C:/Users/Ameni AKKERI/Documents/GitHub/easybq/dist/* http://192.168.1.122:8081/repository/raw-repo/'
     }
-}*/
+}
 
 /*stage('DeploytoNexus 2') {
   steps {
