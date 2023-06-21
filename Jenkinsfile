@@ -96,7 +96,7 @@ stage('Vérifier la configuration du registre npm') {
        stage('BuildDockerImage') {
             steps {
                 script {
-                    def dockerImage = docker.build('bouhmiid/easybb789', '.')
+                    def dockerImage = docker.build('bouhmiid/easybq99', '.')
                 }
             }
         }
