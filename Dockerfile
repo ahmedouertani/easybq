@@ -1,4 +1,4 @@
-FROM node:latest
+FROM ubuntu:20.04
 
 COPY . /easybq
 
