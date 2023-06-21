@@ -1,21 +1,19 @@
-runtime: nodejs16
-service: esaybq-frontend
-instance_class: F2
-
-env_variables:
-  BUCKET_NAME: "easybq"
-
-handlers:
-  - url: /(.*\.[A-Za-z0-9]{1,4})$
-    static_files: dist/easy-bq/\1
-    upload: dist/app/(.*\.[A-Za-z0-9]{1,4})$
-
-  - url: /(.*)$
-    static_files: dist/easy-bq/index.html
-    upload: dist/easy-bq/index.html
-  - url: /(.*\.(js|css|svg|png)(|\.map))$
-    static_files: dist/\1
-    upload: dist/(.*)(|\.map)
-  - url: /.*
-    static_files: dist/index.html
-    upload: dist/.*
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+        - name: my-app-container
+          image: bouhmiid/easybb789:latest
+          ports:
+            - containerPort: 4200
