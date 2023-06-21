@@ -2,7 +2,7 @@ FROM ubuntu:20.04
 
 COPY . /easybq
 
-RUN apt-get -y update  
+#RUN apt-get -y update  
 RUN apt-get upgrade -y
 RUN apt-get install -y curl 
 RUN curl -sL https://deb.nodesource.com/setup_18.x -o nodesource_setup.sh && \
