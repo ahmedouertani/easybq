@@ -2,9 +2,6 @@ FROM ubuntu:20.04
 
 COPY . /easybq
 
-RUN apt-get install -y tzdata
-RUN ln -fs /usr/share/zoneinfo/Europe/Paris/etc/localtime
-RUN dpkg-reconfigure --frontend noninteractive tzdata
 RUN apt-get -y update  
 RUN apt-get upgrade -y
 RUN apt-get install -y curl 
