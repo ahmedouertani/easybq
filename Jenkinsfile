@@ -97,7 +97,7 @@ stage('Vérifier la configuration du registre npm') {
        stage('BuildDockerImage') {
             steps {
                 script {
-                    def dockerImage = docker.build('bouhmiid/easybq99', '.')
+                    def dockerImage = docker.build('bouhmiid/easybb789', '.')
                 }
             }
         }
@@ -110,14 +110,14 @@ stage('Vérifier la configuration du registre npm') {
 
         stage('PushDocker') {
             steps {
-               sh 'docker push bouhmiid/easybq99:latest'
+               sh 'docker push bouhmiid/easybb789:latest'
                }
                }
 
         stage('RunDockerContainer') {
             steps {
                 script {
-                    docker.image('bouhmiid/easybq99').run('-p 1200:4200')
+                    docker.image('bouhmiid/easybb789').run('-p 1200:4200')
                 }
             }
         }
