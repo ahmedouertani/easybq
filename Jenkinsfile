@@ -70,12 +70,9 @@ stage('Vérifier la configuration du registre npm') {
       steps {
         // Publication des artéfacts sur Nexus
         script {
-          def nexusUrl = 'http://192.168.1.122:8081/repository/maven-central/'
-          def nexusUsername = 'admin'
-          def nexusPassword = 'bouhmidenaey97'
           def artifactsPath = 'dist'
           
-          def nexusPublisher = nexusPublisher(publisherId: 'nexus', nexusVersion: 'nexus3', protocol: 'http', nexusUrl: nexusUrl, username: nexusUsername, password: nexusPassword)
+          def nexusPublisher = nexusPublisher(publisherId: 'nexus', nexusVersion: 'nexus3', protocol: 'http', nexusUrl: 'http://192.168.1.122:8081/repository/maven-central/', username: 'admin', password: 'bouhmidenaey97')
           
           nexusPublisher.nexusUpload(contentType: 'auto', artifactDirectory: artifactsPath, groupId: 'com.example.angular', repository: 'maven-central', version: '1.0.0-SNAPSHOT')
         }
