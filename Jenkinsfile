@@ -73,16 +73,17 @@ stage('UploadArtifactNexusRAW') {
         sh 'npm install'
         sh 'npm run build'
 
-        // Parcourir et déployer les fichiers JS
-        sh 'for file in dist/*.js; do curl -v -u admin:bouhmidenaey97 --upload-file "$file" http://192.168.1.122:8081/repository/npm-repo/; done'
+        // Déployer les fichiers JS
+        sh 'find dist -name "*.js" -exec curl -v -u admin:bouhmidenaey97 --upload-file {} http://192.168.1.122:8081/repository/npm-repo/ \\;'
 
-        // Parcourir et déployer les fichiers HTML
-        sh 'for file in dist/*.html; do curl -v -u admin:bouhmidenaey97 --upload-file "$file" http://192.168.1.122:8081/repository/npm-repo/; done'
+        // Déployer les fichiers HTML
+        sh 'find dist -name "*.html" -exec curl -v -u admin:bouhmidenaey97 --upload-file {} http://192.168.1.122:8081/repository/npm-repo/ \\;'
 
-        // Parcourir et déployer les fichiers CSS
-        sh 'for file in dist/*.css; do curl -v -u admin:bouhmidenaey97 --upload-file "$file" http://192.168.1.122:8081/repository/npm-repo/; done'
+        // Déployer les fichiers CSS
+        sh 'find dist -name "*.css" -exec curl -v -u admin:bouhmidenaey97 --upload-file {} http://192.168.1.122:8081/repository/npm-repo/ \\;'
     }
 }
+
 
 
 /*stage('DeploytoNexus 2') {
