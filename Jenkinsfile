@@ -54,11 +54,11 @@ stage('Vérifier la configuration du registre npm') {
                 sh'node -v' }
                 }
 
-        /*stage('ExcuteSonarQubeReport') { //Installer les dépendances du projet
+        stage('ExcuteSonarQubeReport') { //Installer les dépendances du projet
             steps {
                 sh 'npm run sonar-scanner'
             }
-        }*/
+        }
 
         stage('Build') {
             steps {    
@@ -116,7 +116,7 @@ stage('Vérifier la configuration du registre npm') {
         stage('RunDockerContainer') {
             steps {
                 script {
-                    docker.image('bouhmiid/easybb789').run('-p 1200:4200')
+                    docker.image('bouhmiid/easybb789').run('-p 1178:4200')
                 }
             }
         }
@@ -181,3 +181,4 @@ stage('Vérifier la configuration du registre npm') {
         }
     }
 }
+jenkins sur compute engine et back sur app engine
