@@ -115,6 +115,16 @@ stage('UploadArtifactNexusRAW') {
             }
         }
 
+        stage('DeployToGCP') {
+            steps {
+                // Déployer l'application sur GCP
+                // Utilisez les commandes suivantes pour mettre à jour le déploiement et le service existants
+                sh 'gcloud container clusters get-credentials easytest --zone us-central1-a'
+                sh 'kubectl config use-context gke_bqls-test217_us-central1-a_easytest'
+                sh 'kubectl set image deployment/easytest easytest=bouhmiid/easybb789:latest'
+            }
+        }
+
         stage('Set Environment Variables') {
   steps {
     script {
