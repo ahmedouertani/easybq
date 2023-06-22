@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+        triggers {
+        pollSCM('* * * * *') // Vérifie les modifications toutes les minutes
+    }
+
     environment {        
         DOCKERHUB_CREDENTIALS = credentials ('dockerHub')
         SONAR_HOST_URL = "http://192.168.1.122:9000"
@@ -110,7 +114,7 @@ stage('UploadArtifactNexusRAW') {
         stage('RunDockerContainer') {
             steps {
                 script {
-                    docker.image('bouhmiid/easybb789').run('-p 3332:4200')
+                    docker.image('bouhmiid/easybb789').run('-p 4547:4200')
                 }
             }
         }
