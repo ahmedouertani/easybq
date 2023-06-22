@@ -66,32 +66,17 @@ stage('Vérifier la configuration du registre npm') {
                 }
                 }*/
 
-                stage('Publication des artéfacts sur Nexus') {
-      steps {
-        // Publication des artéfacts sur Nexus
-        script {
-          def artifactsPath = 'dist'
-          
-          def nexusPublisher = nexusPublisher(publisherId: 'nexus', nexusVersion: 'nexus3', protocol: 'http', nexusUrl: 'http://192.168.1.122:8081/repository/maven-central/', username: 'admin', password: 'bouhmidenaey97')
-          
-          nexusPublisher.nexusUpload(contentType: 'auto', artifactDirectory: artifactsPath, groupId: 'com.example.angular', repository: 'maven-central', version: '1.0.0-SNAPSHOT')
-        }
-      }
-      }
-
- 
-
-/*stage('UploadArtifactNexusRAW') {
+stage('UploadArtifactNexusRAW') {
     steps {
         // Reste des étapes de déploiement des artefacts
-        sh 'npm config set registry http://192.168.1.122:8081'
+        /*sh 'npm config set registry http://192.168.1.122:8081'
         sh 'npm install'
-        sh 'npm run build'
+        sh 'npm run build'*/
 
         // Déployer l'artefact sur Nexus
-        sh 'curl -v -u admin:bouhmidenaey97 --upload-file C:/Users/Ameni AKKERI/Documents/GitHub/easybq/dist/* http://192.168.1.122:8081/repository/raw-repo/'
+        sh 'curl -v -u admin:bouhmidenaey97 --upload-file C:/Users/Ameni AKKERI/Documents/GitHub/easybq/dist/* http://192.168.1.122:8081/repository/npm-repo/'
     }
-}*/
+}
 
 /*stage('DeploytoNexus 2') {
   steps {
