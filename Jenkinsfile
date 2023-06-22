@@ -2,7 +2,7 @@ pipeline {
     agent any
 
         triggers {
-        cron('H/5 * * * *') // Vérifie les modifications toutes les minutes
+        cron(' * * * *') // Vérifie les modifications toutes les minutes
     }
 
     environment {        
