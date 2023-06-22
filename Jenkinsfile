@@ -2,7 +2,7 @@ pipeline {
     agent any
 
         triggers {
-        cron('* * * *') // Vérifie les modifications toutes les minutes
+        pollSCM('* * * *') // Vérifie les modifications toutes les minutes
     }
 
     environment {        
