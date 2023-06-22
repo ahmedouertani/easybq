@@ -2,7 +2,10 @@ pipeline {
     agent any
 
         triggers {
-        pollSCM('* * * *') // Vérifie les modifications toutes les minutes
+         git(
+            branches: [[name: 'main']], // Spécifiez la branche à surveiller, par exemple "main"
+            // Les autres options de déclencheur Git peuvent être configurées ici
+        )
     }
 
     environment {        
