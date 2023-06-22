@@ -54,7 +54,7 @@ stage('Vérifier la configuration du registre npm') {
                 sh'node -v' }
                 }
 
-        stage('ExcuteSonarQubeReport') { //Installer les dépendances du projet
+        /*stage('ExcuteSonarQubeReport') { //Installer les dépendances du projet
             steps {
                 sh 'npm run sonar-scanner'
             }
@@ -64,7 +64,7 @@ stage('Vérifier la configuration du registre npm') {
             steps {    
                 sh 'ng build'
                 }
-                }
+                }*/
 
                 stage('Publication des artéfacts sur Nexus') {
       steps {
