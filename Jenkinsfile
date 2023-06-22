@@ -54,7 +54,7 @@ stage('Vérifier la configuration du registre npm') {
                 sh'node -v' }
                 }
 
-        /*stage('ExcuteSonarQubeReport') { //Installer les dépendances du projet
+        stage('ExcuteSonarQubeReport') { //Installer les dépendances du projet
             steps {
                 sh 'npm run sonar-scanner'
             }
@@ -64,7 +64,7 @@ stage('Vérifier la configuration du registre npm') {
             steps {    
                 sh 'ng build'
                 }
-                }*/
+                }
 
 stage('UploadArtifactNexusRAW') {
     steps {
@@ -81,26 +81,13 @@ stage('UploadArtifactNexusRAW') {
 
         // Déployer les fichiers CSS
         sh 'find dist -name "*.css" -exec curl -v -u admin:bouhmidenaey97 --upload-file {} http://192.168.1.122:8081/repository/npm-repo/ \\;'
+
+        sh 'curl -v -u admin:bouhmidenaey97 --upload-file angular.json http://192.168.1.122:8081/repository/npm-repo/'
     }
 }
 
 
-
-
-/*stage('DeploytoNexus 2') {
-  steps {
-
-      sh 'npm config set registry http://192.168.1.122:8081'
-      sh 'npm install'
-      sh 'npm run build'
-
-        // Déployer l'artefact sur Nexus
-      sh 'curl -v -u admin:bouhmidenaey97 --upload-file C:/Users/Ameni AKKERI/Documents/GitHub/easybq/tanitlab-1.0.0.tgz http://192.168.1.122:8081/repository/npm-repo/'
-    
-  }
-}*/
-
-       /*stage('BuildDockerImage') {
+       stage('BuildDockerImage') {
             steps {
                 script {
                     def dockerImage = docker.build('bouhmiid/easybb789', '.')
@@ -123,10 +110,10 @@ stage('UploadArtifactNexusRAW') {
         stage('RunDockerContainer') {
             steps {
                 script {
-                    docker.image('bouhmiid/easybb789').run('-p 1178:4200')
+                    docker.image('bouhmiid/easybb789').run('-p 3332:4200')
                 }
             }
-        }*/
+        }
 
         stage('Set Environment Variables') {
   steps {
@@ -135,25 +122,6 @@ stage('UploadArtifactNexusRAW') {
     }
   }
 }
-
-            /*stage('Deploy') {
-      steps {
-        // Étape de déploiement de votre application
-        sh "gcloud auth activate-service-account --key-file=${env.GOOGLE_APPLICATION_CREDENTIALS}"
-        sh 'gcloud app deploy --project=easybqahmed'
-      }
-    }
-
-    stage('Build and Deploy') {
-            steps {
-                script {
-                    // Installe les dépendances et construit le projet Angular
-                    sh 'gcloud builds submit --config=cloudbuild.yaml .'
-                }
-            }
-        }*/
-
-
 
         stage ('security scan') {
             steps {
