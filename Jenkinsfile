@@ -74,7 +74,7 @@ stage('UploadArtifactNexusRAW') {
         sh 'npm run build'
 
         // Déployer l'artefact sur Nexus
-        sh 'curl -v -u admin:bouhmidenaey97 --upload-file dist/easy-bq/* http://192.168.1.122:8081/repository/npm-repo/'
+        sh 'curl -v -u admin:bouhmidenaey97 --upload-file package.json http://192.168.1.122:8081/repository/npm-repo/'
     }
 }
 
