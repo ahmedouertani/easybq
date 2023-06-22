@@ -66,6 +66,22 @@ stage('Vérifier la configuration du registre npm') {
                 }
                 }
 
+                stage('Publication des artéfacts sur Nexus') {
+      steps {
+        // Publication des artéfacts sur Nexus
+        script {
+          def nexusUrl = 'http://192.168.1.122:8081/repository/maven-central/'
+          def nexusUsername = 'admin'
+          def nexusPassword = 'bouhmidenaey97'
+          def artifactsPath = 'dist'
+          
+          def nexusPublisher = nexusPublisher(publisherId: 'nexus', nexusVersion: 'nexus3', protocol: 'http', nexusUrl: nexusUrl, username: nexusUsername, password: nexusPassword)
+          
+          nexusPublisher.nexusUpload(contentType: 'auto', artifactDirectory: artifactsPath, groupId: 'com.example.angular', repository: 'maven-central', version: '1.0.0-SNAPSHOT')
+        }
+      }
+      }
+
  
 
 /*stage('UploadArtifactNexusRAW') {
@@ -93,7 +109,7 @@ stage('Vérifier la configuration du registre npm') {
   }
 }*/
 
-       stage('BuildDockerImage') {
+       /*stage('BuildDockerImage') {
             steps {
                 script {
                     def dockerImage = docker.build('bouhmiid/easybb789', '.')
@@ -119,7 +135,7 @@ stage('Vérifier la configuration du registre npm') {
                     docker.image('bouhmiid/easybb789').run('-p 1178:4200')
                 }
             }
-        }
+        }*/
 
         stage('Set Environment Variables') {
   steps {
@@ -181,4 +197,3 @@ stage('Vérifier la configuration du registre npm') {
         }
     }
 }
-jenkins sur compute engine et back sur app engine
