@@ -16,7 +16,7 @@ pipeline {
     }
 
     scm('GitSCM'){
-            branches('*/main')
+            branches('*/main')}
 
     stages {
 
