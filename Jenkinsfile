@@ -1,11 +1,7 @@
 pipeline {
     agent any
 
-        triggers {
-         scm('GitSCM'){
-            branches('*/main') // Spécifiez la branche à surveiller, par exemple "main"
-            // Les autres options de déclencheur Git peuvent être configurées ici
-         }}
+
     
 
     environment {        
@@ -18,6 +14,9 @@ pipeline {
         NEXUS_REPOSITORY = "raw-repo"
         NEXUS_CREDENTIAL_ID = "nexustanitlab"
     }
+
+    scm('GitSCM'){
+            branches('*/main')
 
     stages {
 
