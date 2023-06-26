@@ -3,7 +3,7 @@ pipeline {
 
         triggers {
          git(
-            branches: [[name: 'main']], // Spécifiez la branche à surveiller, par exemple "main"
+            git branch: 'main', // Spécifiez la branche à surveiller, par exemple "main"
             // Les autres options de déclencheur Git peuvent être configurées ici
         )
     }
