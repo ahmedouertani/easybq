@@ -40,13 +40,7 @@ pipeline {
     }
 }
 
-stage('SCM Checkout') {
-            steps {
-                scm('GitSCM') {
-                    branches('*/main')
-                }
-            }
-        }
+
 
 
 stage('Vérifier la configuration du registre npm') {
