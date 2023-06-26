@@ -3,7 +3,7 @@ pipeline {
 
 
     environment {        
-        DOCKERHUB_CREDENTIALS = credentials ('dockerHub')
+        DOCKERHUB_CREDENTIALS = credentials ('dockerHubr')
         SONAR_HOST_URL = "http://192.168.1.122:9000"
 
         NEXUS_VERSION = "nexus3"
