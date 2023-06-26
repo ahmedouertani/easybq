@@ -2,11 +2,11 @@ pipeline {
     agent any
 
         triggers {
-         git(
-            git branch: 'main', // Spécifiez la branche à surveiller, par exemple "main"
+         scm('GitSCM'){
+            branches('*/main') // Spécifiez la branche à surveiller, par exemple "main"
             // Les autres options de déclencheur Git peuvent être configurées ici
-        )
-    }
+         }}
+    
 
     environment {        
         DOCKERHUB_CREDENTIALS = credentials ('dockerHub')
