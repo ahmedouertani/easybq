@@ -171,5 +171,5 @@ stage('UploadArtifactNexusRAW') {
         failure {
             echo 'Failure'
         }
-    }
+      }
 }
