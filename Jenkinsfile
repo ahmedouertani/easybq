@@ -15,8 +15,6 @@ pipeline {
         NEXUS_CREDENTIAL_ID = "nexustanitlab"
     }
 
-    scm('GitSCM'){
-            branches('*/main')}
 
     stages {
 
@@ -41,6 +39,14 @@ pipeline {
         sh 'npm config set registry https://registry.npmjs.org/'
     }
 }
+
+stage('SCM Checkout') {
+            steps {
+                scm('GitSCM') {
+                    branches('*/main')
+                }
+            }
+        }
 
 
 stage('Vérifier la configuration du registre npm') {
