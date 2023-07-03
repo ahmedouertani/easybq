@@ -4,11 +4,11 @@ pipeline {
 
     environment {        
         DOCKERHUB_CREDENTIALS = credentials ('dockerHubr')
-        SONAR_HOST_URL = "http://192.168.131.127:9000"
+        SONAR_HOST_URL = "http://192.168.131.228:9000"
 
         NEXUS_VERSION = "nexus3"
         NEXUS_PROTOCOL = "http"
-        NEXUS_URL = "http://192.168.131.127:9000"
+        NEXUS_URL = "http://192.168.131.228:9000"
         NEXUS_REPOSITORY = "raw-repo"
         NEXUS_CREDENTIAL_ID = "nexustanitlab"
     }
@@ -78,13 +78,13 @@ stage('UploadArtifactNexusRAW') {
         sh 'npm run build'
 
         // Déployer les fichiers JS
-        sh 'find dist -name "*.js" -exec curl -v -u admin:bouhmidenaey97 --upload-file {} http://192.168.131.127:8081/repository/npm-repo/ \\;'
+        sh 'find dist -name "*.js" -exec curl -v -u admin:bouhmidenaey97 --upload-file {} http://192.168.131.228:8081/repository/npm-repo/ \\;'
 
         // Déployer les fichiers HTML
-        sh 'find dist -name "*.html" -exec curl -v -u admin:bouhmidenaey97 --upload-file {} http://192.168.131.127:8081/repository/npm-repo/ \\;'
+        sh 'find dist -name "*.html" -exec curl -v -u admin:bouhmidenaey97 --upload-file {} http://192.168.131.228:8081/repository/npm-repo/ \\;'
 
         // Déployer les fichiers CSS
-        sh 'find dist -name "*.css" -exec curl -v -u admin:bouhmidenaey97 --upload-file {} http://192.168.131.127:8081/repository/npm-repo/ \\;'
+        sh 'find dist -name "*.css" -exec curl -v -u admin:bouhmidenaey97 --upload-file {} http://192.168.131.228:8081/repository/npm-repo/ \\;'
 
         sh 'curl -v -u admin:bouhmidenaey97 --upload-file angular.json http://192.168.131.127:8081/repository/npm-repo/'
     }
