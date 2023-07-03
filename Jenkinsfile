@@ -78,15 +78,15 @@ stage('UploadArtifactNexusRAW') {
         sh 'npm run build'
 
         // Déployer les fichiers JS
-        sh 'find dist -name "*.js" -exec curl -v -u admin:bouhmidenaey97 --upload-file {} http://192.168.131.228:8081/repository/npm-repo/ \\;'
+        sh 'find dist -name "*.js" -exec curl -v -u admin:bouhmidenaey97 --upload-file {} http://192.168.1.228:8081/repository/npm-repo/ \\;'
 
         // Déployer les fichiers HTML
-        sh 'find dist -name "*.html" -exec curl -v -u admin:bouhmidenaey97 --upload-file {} http://192.168.131.228:8081/repository/npm-repo/ \\;'
+        sh 'find dist -name "*.html" -exec curl -v -u admin:bouhmidenaey97 --upload-file {} http://192.168.1.228:8081/repository/npm-repo/ \\;'
 
         // Déployer les fichiers CSS
-        sh 'find dist -name "*.css" -exec curl -v -u admin:bouhmidenaey97 --upload-file {} http://192.168.131.228:8081/repository/npm-repo/ \\;'
+        sh 'find dist -name "*.css" -exec curl -v -u admin:bouhmidenaey97 --upload-file {} http://192.168.1.228:8081/repository/npm-repo/ \\;'
 
-        sh 'curl -v -u admin:bouhmidenaey97 --upload-file angular.json http://192.168.131.127:8081/repository/npm-repo/'
+        sh 'curl -v -u admin:bouhmidenaey97 --upload-file angular.json http://192.168.1.228:8081/repository/npm-repo/'
     }
 }
 
