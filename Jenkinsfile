@@ -129,13 +129,13 @@ stage('UploadArtifactNexusRAW') {
             }
         }*/
 
-        stage('Set Environment Variables') {
+        /*stage('Set Environment Variables') {
   steps {
     script {
       env.GOOGLE_APPLICATION_CREDENTIALS = 'easybqahmed-2b00c9c723aa.json'
     }
   }
-}
+}*/
 
         stage ('security scan') {
             steps {
