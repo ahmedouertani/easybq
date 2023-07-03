@@ -114,12 +114,12 @@ stage('UploadArtifactNexusRAW') {
         stage('RunDockerContainer') {
             steps {
                 script {
-                    docker.image('bouhmiid/easybb789').run('-p 4547:4200')
+                    docker.image('bouhmiid/easybb789').run('-p 2202:4200')
                 }
             }
         }
 
-        stage('DeployToGCP') {
+        /*stage('DeployToGCP') {
             steps {
                 // Déployer l'application sur GCP
                 // Utilisez les commandes suivantes pour mettre à jour le déploiement et le service existants
@@ -127,7 +127,7 @@ stage('UploadArtifactNexusRAW') {
                 sh 'kubectl config use-context gke_bqls-test217_us-central1-a_easytest'
                 sh 'kubectl set image deployment/easytest easytest=bouhmiid/easybb789:latest'
             }
-        }
+        }*/
 
         stage('Set Environment Variables') {
   steps {
