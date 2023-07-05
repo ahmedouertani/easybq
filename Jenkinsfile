@@ -114,7 +114,7 @@ pipeline {
                 }
             }
 
-        /*stage ('loginDockerhub') {
+        stage ('loginDockerhub') {
             steps{
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
@@ -132,7 +132,7 @@ pipeline {
                     docker.image('bouhmiid/easybb789').run('-p 2202:4200')
                 }
             }
-        }*/
+        }
 
 stage('Deploy to GKE') {
     steps {
@@ -167,7 +167,7 @@ stage('Deploy to GKE') {
             }
             }*/
 
-        /*stage ('security scan') {
+        stage ('security scan') {
             steps {
                 echo ("Perform a security scan using OWASP ZAB")
 
@@ -186,7 +186,7 @@ stage('Deploy to GKE') {
                     subject: 'Scan status email',
                     to: 'ahmed.ouertani.2@esprit.tn'
             }
-         }}*/
+         }}
 
 
                 }
