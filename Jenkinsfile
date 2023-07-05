@@ -1,17 +1,9 @@
 pipeline {
     agent any
 
-   
-
     environment {        
         DOCKERHUB_CREDENTIALS = credentials ('dockerHub')
         SONAR_HOST_URL = "http://192.168.1.228:9000"
-
-        NEXUS_VERSION = "nexus3"
-        NEXUS_PROTOCOL = "http"
-        NEXUS_URL = "http://192.168.1.228:8081"
-        NEXUS_REPOSITORY = "maven-nexus-repo"
-        NEXUS_CREDENTIAL_ID = "nexus-user-credentials"
     }
 
 
@@ -34,19 +26,19 @@ pipeline {
             }
         }
         stage('SetNpmRegistry') {
-    steps {
-        sh 'npm config set registry https://registry.npmjs.org/'
-    }
-}
+            steps {
+                sh 'npm config set registry https://registry.npmjs.org/'
+                }
+        }
 
 
 
 
-stage('Vérifier la configuration du registre npm') {
-    steps {
-        sh 'npm config list'
-    }
-}
+        stage('Vérifier la configuration du registre npm') {
+            steps {
+                 sh 'npm config list'
+                }
+        }
 
         stage('InstallDependencies') { //Installer les dépendances du projet
             steps {
@@ -54,10 +46,11 @@ stage('Vérifier la configuration du registre npm') {
             }
         }
 
-                stage('NodeVersion') {
+        stage('NodeVersion') {
             steps {
-                sh'node -v' }
+                sh'node -v' 
                 }
+        }
 
         stage('ExcuteSonarQubeReport') { //Installer les dépendances du projet
             steps {
@@ -69,16 +62,16 @@ stage('Vérifier la configuration du registre npm') {
             steps {    
                 sh 'ng build'
                 }
-                }
+        }
 
-stage("Publish to Nexus Repository Manager") {
-    steps {
-        script {
+        stage("Publish to Nexus Repository Manager") {
+            steps {
+                 script {
             // Récupération des fichiers .js dans le sous-dossier easy-bq du répertoire dist
-            def files = findFiles(glob: "dist/easy-bq/*.js")
+                    def files = findFiles(glob: "dist/easy-bq/*.js")
 
-            if (files) {
-                files.each { file ->
+                if (files) {
+                  files.each { file ->
                     // Récupération du nom et du chemin de l'artefact
                     def fileName = file.name
                     def artifactPath = file.path
@@ -108,33 +101,10 @@ stage("Publish to Nexus Repository Manager") {
                 }
             } else {
                 error "No .js files found in the dist/easy-bq directory"
+                }
             }
         }
-    }
-}
-
-
-
-        /*stage('UploadArtifactNexusRAW') {
-            steps {
-                // Reste des étapes de déploiement des artefacts*/
-                /*sh 'npm config set registry http://192.168.1.122:8081'*/
-                /*sh 'npm install'
-                sh 'npm run build'
-
-                // Déployer les fichiers JS
-                sh 'find dist -name "*.js" -exec curl -v -u admin:bouhmidenaey97 --upload-file {} http://192.168.1.228:8081/repository/npm-repo/ \\;'
-
-                // Déployer les fichiers HTML
-                sh 'find dist -name "*.html" -exec curl -v -u admin:bouhmidenaey97 --upload-file {} http://192.168.1.228:8081/repository/npm-repo/ \\;'
-
-                // Déployer les fichiers CSS
-                sh 'find dist -name "*.css" -exec curl -v -u admin:bouhmidenaey97 --upload-file {} http://192.168.1.228:8081/repository/npm-repo/ \\;'
-
-                sh 'curl -v -u admin:bouhmidenaey97 --upload-file angular.json http://192.168.1.228:8081/repository/npm-repo/'
-            }
-        }*/
-
+     }
 
         stage('BuildDockerImage') {
                 steps {
@@ -169,8 +139,9 @@ stage("Publish to Nexus Repository Manager") {
                 // Configuration du projet GCP
                 sh 'gcloud config set project bqls-test217'
 
-                 // Authentification avec votre compte GCP
-                sh 'gcloud auth login' // Vous pouvez être invité à ouvrir un lien dans votre navigateur pour vous connecter
+                 // Authentification avec votre compte GCP en utilisant les informations d'identification GCP
+                withCredentials([file(credentialsId: 'bqls-test217', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
+                    sh 'gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}'
 
                 // Création du cluster GKE
                 sh 'gcloud container clusters create easytest --num-nodes=2'
@@ -184,7 +155,7 @@ stage("Publish to Nexus Repository Manager") {
                 // Exposition du service pour accéder à l'application
                 sh 'kubectl expose deployment/easytest --type=LoadBalancer --port=4200 --target-port=4200'
             }
-         }
+         }}
 
         /*stage('Set Environment Variables') {
             steps {
