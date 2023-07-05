@@ -91,13 +91,13 @@ stage("Publish to Nexus Repository Manager") {
 
                     echo "*** File: ${artifactPath}, group: ${groupId}, packaging: ${packaging}, version ${version}"
                     nexusArtifactUploader(
-                        nexusVersion: NEXUS_VERSION,
-                        protocol: NEXUS_PROTOCOL,
-                        nexusUrl: NEXUS_URL,
+                        nexusVersion: "nexus3",
+                        protocol: "http",
+                        nexusUrl: "http://192.168.1.228:8081",
                         groupId: groupId,
                         version: version,
-                        repository: NEXUS_REPOSITORY,
-                        credentialsId: NEXUS_CREDENTIAL_ID,
+                        repository: "maven-nexus-repo",
+                        credentialsId: "nexus-user-credentials",
                         artifacts: [
                             [artifactId: artifactId,
                             classifier: '',
