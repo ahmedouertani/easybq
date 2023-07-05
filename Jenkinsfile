@@ -74,40 +74,45 @@ stage('Vérifier la configuration du registre npm') {
  stage("Publish to Nexus Repository Manager") {
     steps {
         script {
-            // Construction du chemin de l'artifact
-            def artifactPath = "dist/*.tar.gz"
+            // Récupération des fichiers .js dans le répertoire dist
+            def files = findFiles(glob: "dist/*.js")
 
-            // Vérification de l'existence de l'artifact
-            def artifactExists = fileExists artifactPath
-            if (artifactExists) {
-                // Récupération des informations de version
-                def version = sh(returnStdout: true, script: "ng version --json | jq -r '.angular.version.full'")
-                def groupId = "com.example" // Remplacez par votre groupId souhaité
-                def artifactId = "my-angular-app" // Remplacez par votre artifactId souhaité
-                def packaging = "tar.gz"
+            if (files) {
+                files.each { file ->
+                    // Récupération du nom et du chemin de l'artefact
+                    def fileName = file.name
+                    def artifactPath = file.path
 
-                echo "*** File: ${artifactPath}, group: ${groupId}, packaging: ${packaging}, version ${version}"
-                nexusArtifactUploader(
-                    nexusVersion: NEXUS_VERSION,
-                    protocol: NEXUS_PROTOCOL,
-                    nexusUrl: NEXUS_URL,
-                    groupId: groupId,
-                    version: version,
-                    repository: NEXUS_REPOSITORY,
-                    credentialsId: NEXUS_CREDENTIAL_ID,
-                    artifacts: [
-                        [artifactId: artifactId,
-                        classifier: '',
-                        file: artifactPath,
-                        type: packaging]
-                    ]
-                )
+                    // Récupération des informations de version et autres données souhaitées
+                    def version = "1.0.0" // Remplacez par la version souhaitée
+                    def groupId = "com.example" // Remplacez par votre groupId souhaité
+                    def artifactId = fileName - ".js"
+                    def packaging = "js"
+
+                    echo "*** File: ${artifactPath}, group: ${groupId}, packaging: ${packaging}, version ${version}"
+                    nexusArtifactUploader(
+                        nexusVersion: NEXUS_VERSION,
+                        protocol: NEXUS_PROTOCOL,
+                        nexusUrl: NEXUS_URL,
+                        groupId: groupId,
+                        version: version,
+                        repository: NEXUS_REPOSITORY,
+                        credentialsId: NEXUS_CREDENTIAL_ID,
+                        artifacts: [
+                            [artifactId: artifactId,
+                            classifier: '',
+                            file: artifactPath,
+                            type: packaging]
+                        ]
+                    )
+                }
             } else {
-                error "*** File: ${artifactPath}, could not be found"
+                error "No .js files found in the dist directory"
             }
         }
     }
 }
+
 
 
         /*stage('UploadArtifactNexusRAW') {
