@@ -70,36 +70,36 @@ stage('Vérifier la configuration du registre npm') {
                 }
                 }
 
-stage('UploadArtifactNexusRAW') {
-    steps {
-        // Reste des étapes de déploiement des artefacts
-        /*sh 'npm config set registry http://192.168.1.122:8081'*/
-        sh 'npm install'
-        sh 'npm run build'
-
-        // Déployer les fichiers JS
-        sh 'find dist -name "*.js" -exec curl -v -u admin:bouhmidenaey97 --upload-file {} http://192.168.1.228:8081/repository/npm-repo/ \\;'
-
-        // Déployer les fichiers HTML
-        sh 'find dist -name "*.html" -exec curl -v -u admin:bouhmidenaey97 --upload-file {} http://192.168.1.228:8081/repository/npm-repo/ \\;'
-
-        // Déployer les fichiers CSS
-        sh 'find dist -name "*.css" -exec curl -v -u admin:bouhmidenaey97 --upload-file {} http://192.168.1.228:8081/repository/npm-repo/ \\;'
-
-        sh 'curl -v -u admin:bouhmidenaey97 --upload-file angular.json http://192.168.1.228:8081/repository/npm-repo/'
-    }
-}
-
-
-       stage('BuildDockerImage') {
+        stage('UploadArtifactNexusRAW') {
             steps {
-                script {
-                    def dockerImage = docker.build('bouhmiid/easybb789', '.')
-                }
+                // Reste des étapes de déploiement des artefacts
+                /*sh 'npm config set registry http://192.168.1.122:8081'*/
+                sh 'npm install'
+                sh 'npm run build'
+
+                // Déployer les fichiers JS
+                sh 'find dist -name "*.js" -exec curl -v -u admin:bouhmidenaey97 --upload-file {} http://192.168.1.228:8081/repository/npm-repo/ \\;'
+
+                // Déployer les fichiers HTML
+                sh 'find dist -name "*.html" -exec curl -v -u admin:bouhmidenaey97 --upload-file {} http://192.168.1.228:8081/repository/npm-repo/ \\;'
+
+                // Déployer les fichiers CSS
+                sh 'find dist -name "*.css" -exec curl -v -u admin:bouhmidenaey97 --upload-file {} http://192.168.1.228:8081/repository/npm-repo/ \\;'
+
+                sh 'curl -v -u admin:bouhmidenaey97 --upload-file angular.json http://192.168.1.228:8081/repository/npm-repo/'
             }
         }
 
-        stage ('loginDockerhub') {
+
+        stage('BuildDockerImage') {
+                steps {
+                    script {
+                        def dockerImage = docker.build('bouhmiid/easybb789', '.')
+                    }
+                }
+            }
+
+        /*stage ('loginDockerhub') {
             steps{
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
@@ -117,27 +117,36 @@ stage('UploadArtifactNexusRAW') {
                     docker.image('bouhmiid/easybb789').run('-p 2202:4200')
                 }
             }
-        }
-
-        /*stage('DeployToGCP') {
-            steps {
-                // Déployer l'application sur GCP
-                // Utilisez les commandes suivantes pour mettre à jour le déploiement et le service existants
-                sh 'gcloud container clusters get-credentials easytest --zone us-central1-a'
-                sh 'kubectl config use-context gke_bqls-test217_us-central1-a_easytest'
-                sh 'kubectl set image deployment/easytest easytest=bouhmiid/easybb789:latest'
-            }
         }*/
 
-        /*stage('Set Environment Variables') {
-  steps {
-    script {
-      env.GOOGLE_APPLICATION_CREDENTIALS = 'easybqahmed-2b00c9c723aa.json'
-    }
-  }
-}*/
+        stage('Deploy to GKE') {
+            steps {
+                // Configuration du projet GCP
+                sh 'gcloud config set project bqls-test217'
 
-        stage ('security scan') {
+                // Création du cluster GKE
+                sh 'gcloud container clusters create easytest --num-nodes=2'
+
+                // Récupération des informations d'authentification pour le cluster GKE
+                sh 'gcloud container clusters get-credentials easytest --zone us-central1-a'
+
+                // Déploiement de l'application sur le cluster GKE
+                sh 'kubectl create deployment easytest --image=bouhmiid/easybb789:latest --replicas=1'
+
+                // Exposition du service pour accéder à l'application
+                sh 'kubectl expose deployment/easytest --type=LoadBalancer --port=4200 --target-port=4200'
+            }
+        }
+
+        /*stage('Set Environment Variables') {
+            steps {
+                script {
+                env.GOOGLE_APPLICATION_CREDENTIALS = 'easybqahmed-2b00c9c723aa.json'
+                }
+            }
+            }*/
+
+        /*stage ('security scan') {
             steps {
                 echo ("Perform a security scan using OWASP ZAB")
 
@@ -156,17 +165,14 @@ stage('UploadArtifactNexusRAW') {
                     subject: 'Scan status email',
                     to: 'ahmed.ouertani.2@esprit.tn'
             }
-         }}
+         }}*/
 
 
                 }
     
-    post {
-        success {
-            echo 'Success'
-        }
-        failure {
-            echo 'Failure'
-        }
-      }
+	post {
+    	always {
+    		step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: 'wertani.ahmed9977@gmail.com', sendToIndividuals: true])
+		}
+	}
 }
