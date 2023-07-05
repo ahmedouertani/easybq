@@ -71,38 +71,44 @@ stage('Vérifier la configuration du registre npm') {
                 }
                 }
 
-        stage("Publish to Nexus Repository Manager") {
-            steps {
-                script {
-                    pom = readMavenPom file: "pom.xml";
-                    filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
-                    echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
-                    artifactPath = filesByGlob[0].path;
-                    artifactExists = fileExists artifactPath;
-                    if(artifactExists) {
-                        echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
-                        nexusArtifactUploader(
-                            nexusVersion: NEXUS_VERSION,
-                            protocol: NEXUS_PROTOCOL,
-                            nexusUrl: NEXUS_URL,
-                            groupId: pom.groupId,
-                            version: pom.version,
-                            repository: NEXUS_REPOSITORY,
-                            credentialsId: NEXUS_CREDENTIAL_ID,
-                            artifacts: [
-                                [artifactId: pom.artifactId,
-                                classifier: '',
-                                file: artifactPath,
-                                type: pom.packaging],
-                                [artifactId: pom.artifactId,
-                                classifier: '',
-                                file: "pom.xml",
-                                type: "pom"]
-                            ]
-                        );
-                    } else {
-                        error "*** File: ${artifactPath}, could not be found";
-                    }}}}
+ stage("Publish to Nexus Repository Manager") {
+    steps {
+        script {
+            // Construction du chemin de l'artifact
+            def artifactPath = "dist/*.tar.gz"
+
+            // Vérification de l'existence de l'artifact
+            def artifactExists = fileExists artifactPath
+            if (artifactExists) {
+                // Récupération des informations de version
+                def version = sh(returnStdout: true, script: "npm run print-version").trim()
+                def groupId = "com.example" // Remplacez par votre groupId souhaité
+                def artifactId = "my-angular-app" // Remplacez par votre artifactId souhaité
+                def packaging = "tar.gz"
+
+                echo "*** File: ${artifactPath}, group: ${groupId}, packaging: ${packaging}, version ${version}"
+                nexusArtifactUploader(
+                    nexusVersion: NEXUS_VERSION,
+                    protocol: NEXUS_PROTOCOL,
+                    nexusUrl: NEXUS_URL,
+                    groupId: groupId,
+                    version: version,
+                    repository: NEXUS_REPOSITORY,
+                    credentialsId: NEXUS_CREDENTIAL_ID,
+                    artifacts: [
+                        [artifactId: artifactId,
+                        classifier: '',
+                        file: artifactPath,
+                        type: packaging]
+                    ]
+                )
+            } else {
+                error "*** File: ${artifactPath}, could not be found"
+            }
+        }
+    }
+}
+
 
         /*stage('UploadArtifactNexusRAW') {
             steps {
