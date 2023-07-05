@@ -111,7 +111,7 @@ stage('Vérifier la configuration du registre npm') {
                         );
                     } else {
                         error "*** File: ${artifactPath}, could not be found";
-                    }
+                    }}}}
 
         /*stage('UploadArtifactNexusRAW') {
             steps {
