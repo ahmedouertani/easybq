@@ -1,16 +1,19 @@
 pipeline {
     agent any
 
+    tools {
+        maven "Maven"
+    }
 
     environment {        
         DOCKERHUB_CREDENTIALS = credentials ('dockerHub')
-        SONAR_HOST_URL = "http://192.168.131.228:9000"
+        SONAR_HOST_URL = "http://192.168.1.228:9000"
 
         NEXUS_VERSION = "nexus3"
         NEXUS_PROTOCOL = "http"
-        NEXUS_URL = "http://192.168.131.228:9000"
-        NEXUS_REPOSITORY = "raw-repo"
-        NEXUS_CREDENTIAL_ID = "nexustanitlab"
+        NEXUS_URL = "http://192.168.1.228:8081"
+        NEXUS_REPOSITORY = "maven-nexus-repo"
+        NEXUS_CREDENTIAL_ID = "nexus-user-credentials"
     }
 
 
@@ -70,11 +73,51 @@ stage('Vérifier la configuration du registre npm') {
                 }
                 }
 
-        stage('UploadArtifactNexusRAW') {
+                stage("Maven Build") {
             steps {
-                // Reste des étapes de déploiement des artefacts
+                script {
+                    sh "mvn package -DskipTests=true"
+                }
+            }
+        }
+        stage("Publish to Nexus Repository Manager") {
+            steps {
+                script {
+                    pom = readMavenPom file: "pom.xml";
+                    filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
+                    echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
+                    artifactPath = filesByGlob[0].path;
+                    artifactExists = fileExists artifactPath;
+                    if(artifactExists) {
+                        echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
+                        nexusArtifactUploader(
+                            nexusVersion: NEXUS_VERSION,
+                            protocol: NEXUS_PROTOCOL,
+                            nexusUrl: NEXUS_URL,
+                            groupId: pom.groupId,
+                            version: pom.version,
+                            repository: NEXUS_REPOSITORY,
+                            credentialsId: NEXUS_CREDENTIAL_ID,
+                            artifacts: [
+                                [artifactId: pom.artifactId,
+                                classifier: '',
+                                file: artifactPath,
+                                type: pom.packaging],
+                                [artifactId: pom.artifactId,
+                                classifier: '',
+                                file: "pom.xml",
+                                type: "pom"]
+                            ]
+                        );
+                    } else {
+                        error "*** File: ${artifactPath}, could not be found";
+                    }
+
+        /*stage('UploadArtifactNexusRAW') {
+            steps {
+                // Reste des étapes de déploiement des artefacts*/
                 /*sh 'npm config set registry http://192.168.1.122:8081'*/
-                sh 'npm install'
+                /*sh 'npm install'
                 sh 'npm run build'
 
                 // Déployer les fichiers JS
@@ -88,7 +131,7 @@ stage('Vérifier la configuration du registre npm') {
 
                 sh 'curl -v -u admin:bouhmidenaey97 --upload-file angular.json http://192.168.1.228:8081/repository/npm-repo/'
             }
-        }
+        }*/
 
 
         stage('BuildDockerImage') {
