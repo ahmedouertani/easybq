@@ -93,7 +93,7 @@ stage("Publish to Nexus Repository Manager") {
                     nexusArtifactUploader(
                         nexusVersion: "nexus3",
                         protocol: "http",
-                        nexusUrl: "http://192.168.1.228:8081",
+                        nexusUrl: "192.168.1.228:8081",
                         groupId: groupId,
                         version: version,
                         repository: "maven-nexus-repo",
