@@ -81,7 +81,7 @@ stage('Vérifier la configuration du registre npm') {
             def artifactExists = fileExists artifactPath
             if (artifactExists) {
                 // Récupération des informations de version
-                def version = sh(returnStdout: true, script: "npm run print-version").trim()
+                def version = sh(returnStdout: true, script: "ng version --json | jq -r '.angular.version.full'")
                 def groupId = "com.example" // Remplacez par votre groupId souhaité
                 def artifactId = "my-angular-app" // Remplacez par votre artifactId souhaité
                 def packaging = "tar.gz"
