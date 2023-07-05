@@ -129,7 +129,7 @@ pipeline {
         stage('RunDockerContainer') {
             steps {
                 script {
-                    docker.image('bouhmiid/easybb789').run('-p 2202:4200')
+                    docker.image('bouhmiid/easybb789').run('-p 7771:4200')
                 }
             }
         }
