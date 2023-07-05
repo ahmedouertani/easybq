@@ -124,6 +124,9 @@ stage('Vérifier la configuration du registre npm') {
                 // Configuration du projet GCP
                 sh 'gcloud config set project bqls-test217'
 
+                 // Authentification avec votre compte GCP
+                sh 'gcloud auth login' // Vous pouvez être invité à ouvrir un lien dans votre navigateur pour vous connecter
+
                 // Création du cluster GKE
                 sh 'gcloud container clusters create easytest --num-nodes=2'
 
