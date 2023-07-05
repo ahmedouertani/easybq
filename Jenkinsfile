@@ -71,11 +71,11 @@ stage('Vérifier la configuration du registre npm') {
                 }
                 }
 
- stage("Publish to Nexus Repository Manager") {
+stage("Publish to Nexus Repository Manager") {
     steps {
         script {
-            // Récupération des fichiers .js dans le répertoire dist
-            def files = findFiles(glob: "dist/*.js")
+            // Récupération des fichiers .js dans le sous-dossier easy-bq du répertoire dist
+            def files = findFiles(glob: "dist/easy-bq/*.js")
 
             if (files) {
                 files.each { file ->
@@ -107,7 +107,7 @@ stage('Vérifier la configuration du registre npm') {
                     )
                 }
             } else {
-                error "No .js files found in the dist directory"
+                error "No .js files found in the dist/easy-bq directory"
             }
         }
     }
