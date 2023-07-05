@@ -135,7 +135,7 @@ stage('Vérifier la configuration du registre npm') {
 
                 // Exposition du service pour accéder à l'application
                 sh 'kubectl expose deployment/easytest --type=LoadBalancer --port=4200 --target-port=4200'
-            }
+             }
          }
 
         /*stage('Set Environment Variables') {
