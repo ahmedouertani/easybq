@@ -1,13 +1,13 @@
 api_version: 1
 threadsafe: yes
 
-handlers: 
-  -url: /
-  static_files: dist/easy-bq/index.html
-  upload: dist/easy-bq/index.html
+handlers:
+  - url: /
+    static_files: dist/easy-bq/index.html
+    upload: dist/easy-bq/index.html
 
-  -url: /
-  static_dir: dist/easy-bq
+  - url: /
+    static_dir: dist/easy-bq
 
 skip_files:
   - e2e/
