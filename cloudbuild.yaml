@@ -4,5 +4,4 @@ steps:
   - name: 'gcr.io/cloud-builders/npm'
     args: ['run', 'build', '--force']
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['app', 'deploy', '--appyaml=app.yaml']
-  
+    args: ['app', 'deploy', '--appyaml=app.yaml', '--ignore-file=.gcloudignore']
