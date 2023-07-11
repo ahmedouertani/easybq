@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-app-deployment
+  name: easytest
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: my-app
+      app: easytest
   template:
     metadata:
       labels:
-        app: my-app
+        app: easytest
     spec:
       containers:
-        - name: my-app-container
+        - name: easytest
           image: bouhmiid/easybb789:latest
           ports:
             - containerPort: 4200

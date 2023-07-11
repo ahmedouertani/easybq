@@ -140,7 +140,9 @@ pipeline {
 stage('Deploy to GKE') {
     steps {
         // Configuration du projet GCP
-        //sh 'gcloud config set project bqls-test217'
+        sh "gcloud config set project ${GCP_PROJECT}"
+        sh "gcloud config set compute/zone us-central1-a"
+
 
         // Authentification avec votre compte GCP en utilisant les informations d'identification GCP
         withCredentials([file(credentialsId: 'gcloud-creds', variable: 'GCLOUD_CREDS')]) {
@@ -149,18 +151,13 @@ stage('Deploy to GKE') {
                 gcloud auth activate-service-account --key-file="$GCLOUD_CREDS"
                 gcloud compute zones list
                 '''
+                
+            sh "gcloud container clusters get-credentials ${GKE_CLUSTER} --zone us-central1-a"
+            
+            sh "kubectl apply -f kube-deployment.yaml" 
 
-            // Création du cluster GKE
-            //sh 'gcloud container clusters create easytest --num-nodes=2'
+            sh "kubectl expose deployment/easytest --type=LoadBalancer --port=4200 --target-port=4200"
 
-            // Récupération des informations d'authentification pour le cluster GKE
-            //sh 'gcloud container clusters get-credentials easytest --zone us-central1-a'
-
-            // Déploiement de l'application sur le cluster GKE
-            //sh 'kubectl create deployment easytest --image=bouhmiid/easybb789:latest --replicas=1'
-
-            // Exposition du service pour accéder à l'application
-            //sh 'kubectl expose deployment/easytest --type=LoadBalancer --port=4200 --target-port=4200'
         }
     }
 }
