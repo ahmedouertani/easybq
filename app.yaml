@@ -1,6 +1,6 @@
 api_version: 1
 
-runtime: nodejs14
+runtime: nodejs10
 
 
 handlers:
