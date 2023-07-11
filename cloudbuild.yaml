@@ -1,19 +1,7 @@
-steps:
-  - name: 'gcr.io/cloud-builders/git'
-    args: ['clone', 'https://github.com/ahmedouertani/easybq.git']
-  - name: 'gcr.io/cloud-builders/npm:node-16.18.0'
-    args: ['install', '--force']
-  - name: 'gcr.io/cloud-builders/npm:node-16.18.0'
-    args: ['run', 'build']
-  - name: 'gcr.io/cloud-builders/gsutil'
-    args: ['-m', 'cp', '-r', 'dist', 'gs://bqls-test217.appspot.com']
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['install']
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['run', 'build', '--force']
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['app', 'deploy', '--appyaml=app.yaml','--ignore-file=.gcloudignore' ]
-  - name: 'google/cloud-sdk'
-    entrypoint: 'bash'
-    args: ['-c', 'ls -lR dist']
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['builds', 'submit', '--config=cloudbuild.yaml']
-timeout: '3000s'
-
-
+    args: ['app', 'deploy', '--appyaml=app.yaml']
+  
