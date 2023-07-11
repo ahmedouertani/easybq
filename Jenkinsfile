@@ -2,8 +2,14 @@ pipeline {
     agent any
 
     environment {        
-        DOCKERHUB_CREDENTIALS = credentials ('dockerHub')
-        SONAR_HOST_URL = "http://192.168.1.228:9000"
+        DOCKERHUB_CREDENTIALS=credentials ('dockerHub')
+        SONAR_HOST_URL="http://192.168.1.228:9000"
+        GCP_PROJECT='bqls-test217'
+        GKE_CLUSTER='easytest'
+        DOCKER_IMAGE='bouhmiid/easybb789'
+        CLOUDSDK_CORE_PROJECT='bqls-test217'
+        CLIENT_EMAIL='bqls-test217@appspot.gserviceaccount.com'
+        GCLOUD_CREDS=credentials('gcloud-creds')
     }
 
 
@@ -31,9 +37,6 @@ pipeline {
                 }
         }
 
-
-
-
         stage('Vérifier la configuration du registre npm') {
             steps {
                  sh 'npm config list'
@@ -52,11 +55,11 @@ pipeline {
                 }
         }
 
-        stage('ExcuteSonarQubeReport') { //Installer les dépendances du projet
+        /*stage('ExcuteSonarQubeReport') { //Installer les dépendances du projet
             steps {
                 sh 'npm run sonar-scanner'
             }
-        }
+        }*/
 
         stage('Build') {
             steps {    
@@ -64,7 +67,7 @@ pipeline {
                 }
         }
 
-        stage("Publish to Nexus Repository Manager") {
+       /* stage("Publish to Nexus Repository Manager") {
             steps {
                  script {
             // Récupération des fichiers .js dans le sous-dossier easy-bq du répertoire dist
@@ -104,7 +107,7 @@ pipeline {
                 }
             }
         }
-     }
+     }*/
 
         stage('BuildDockerImage') {
                 steps {
@@ -120,7 +123,7 @@ pipeline {
             }
         }
 
-        stage('PushDocker') {
+        /*stage('PushDocker') {
             steps {
                sh 'docker push bouhmiid/easybb789:latest'
                }
@@ -132,28 +135,32 @@ pipeline {
                     docker.image('bouhmiid/easybb789').run('-p 7771:4200')
                 }
             }
-        }
+        }*/
 
 stage('Deploy to GKE') {
     steps {
         // Configuration du projet GCP
-        sh 'gcloud config set project bqls-test217'
+        //sh 'gcloud config set project bqls-test217'
 
         // Authentification avec votre compte GCP en utilisant les informations d'identification GCP
-        withCredentials([file(credentialsId: 'bqls-test217', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
-            sh "gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}"
+        withCredentials([file(credentialsId: 'gcloud-creds', variable: 'GCLOUD_CREDS')]) {
+            sh '''
+                gcloud version
+                gcloud auth activate-service-account --key-file="$GCLOUD_CREDS"
+                gcloud compute zones list
+                '''
 
             // Création du cluster GKE
-            sh 'gcloud container clusters create easytest --num-nodes=2'
+            //sh 'gcloud container clusters create easytest --num-nodes=2'
 
             // Récupération des informations d'authentification pour le cluster GKE
-            sh 'gcloud container clusters get-credentials easytest --zone us-central1-a'
+            //sh 'gcloud container clusters get-credentials easytest --zone us-central1-a'
 
             // Déploiement de l'application sur le cluster GKE
-            sh 'kubectl create deployment easytest --image=bouhmiid/easybb789:latest --replicas=1'
+            //sh 'kubectl create deployment easytest --image=bouhmiid/easybb789:latest --replicas=1'
 
             // Exposition du service pour accéder à l'application
-            sh 'kubectl expose deployment/easytest --type=LoadBalancer --port=4200 --target-port=4200'
+            //sh 'kubectl expose deployment/easytest --type=LoadBalancer --port=4200 --target-port=4200'
         }
     }
 }
