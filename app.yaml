@@ -11,12 +11,12 @@ handlers:
   - url: /
     static_dir: dist/easy-bq
 
-skip_files:
-  - e2e/
-  - node_modules/
-  - src/
-  - ^(.*/)?\..*$
-  - ^(.*/)?.*\.json$
-  - ^(.*/)?.*\.md$
-  - ^(.*/)?.*\.yaml$
-  - ^LICENSE
+#skip_files:
+ # - e2e/
+  #- node_modules/
+  #- src/
+  #- ^(.*/)?\..*$dd
+  #- ^(.*/)?.*\.json$
+  #- ^(.*/)?.*\.md$
+  #- ^(.*/)?.*\.yaml$
+  #- ^LICENSE
