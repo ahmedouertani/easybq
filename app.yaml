@@ -1,6 +1,9 @@
 api_version: 1
 threadsafe: yes
 
+runtime: nodejs14
+
+
 handlers:
   - url: /
     static_files: dist/easy-bq/index.html
