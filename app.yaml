@@ -1,5 +1,4 @@
 api_version: 1
-threadsafe: yes
 
 runtime: nodejs14
 
