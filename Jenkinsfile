@@ -55,11 +55,11 @@ pipeline {
                 }
         }
 
-        stage('ExcuteSonarQubeReport') { //Installer les dépendances du projet
+        /*stage('ExcuteSonarQubeReport') { //Installer les dépendances du projet
             steps {
                 sh 'npm run sonar-scanner'
             }
-        }
+        }*/
 
         stage('Build') {
             steps {    
@@ -67,7 +67,7 @@ pipeline {
                 }
         }
 
-        /*stage("Publish to Nexus Repository Manager") {
+       /* stage("Publish to Nexus Repository Manager") {
             steps {
                  script {
             // Récupération des fichiers .js dans le sous-dossier easy-bq du répertoire dist
@@ -123,7 +123,7 @@ pipeline {
             }
         }
 
-        stage('PushDocker') {
+        /*stage('PushDocker') {
             steps {
                sh 'docker push bouhmiid/easybb789:latest'
                }
@@ -132,27 +132,20 @@ pipeline {
         stage('RunDockerContainer') {
             steps {
                 script {
-                    docker.image('bouhmiid/easybb789').run('-p 0021:4200')
+                    docker.image('bouhmiid/easybb789').run('-p 7771:4200')
                 }
             }
-        }
+        }*/
 
-  stage('Deploy to GKE') {
+ stage('Deploy to GKE') {
     steps {
         // Configuration du projet GCP
-        sh "gcloud config set project BQLS-DEV"
-        sh "gcloud container clusters get-credentials easytest --zone us-central1-a"
-
-        sh "kubectl apply -f kube-deployment.yaml"
-        
-        sh "kubectl set image deployment/easytest-deployment easytest-container=gcr.io/bqls-test217/easybb789:${BUILD_NUMBER}"
-
-        sh "kubectl rollout status deployment/easytest-deployment"
-
+        sh "gcloud config set project ${GCP_PROJECT}"
+        sh "gcloud config set compute/zone us-central1-a"
 
 
         // Authentification avec votre compte GCP en utilisant les informations d'identification GCP
-        /*withCredentials([file(credentialsId: 'gcloud-creds', variable: 'GCLOUD_CREDS')]) {
+        withCredentials([file(credentialsId: 'gcloud-creds', variable: 'GCLOUD_CREDS')]) {
             sh '''
                 gcloud version
                 gcloud auth activate-service-account --key-file="$GCLOUD_CREDS"
@@ -165,10 +158,20 @@ pipeline {
 
             sh "kubectl expose deployment/easytest --type=LoadBalancer --port=4200 --target-port=4200"
 
-        }*/
+        }
     }
 }
 
+    /*stage('Deploy to GKE') {
+            steps {
+                // Déployer l'application sur GKE en utilisant kubectl
+                sh 'kubectl config set-context your-gke-context'
+                sh 'kubectl set image deployment/your-deployment-name your-container-name=gcr.io/your-project-id/your-image-name:$BUILD_NUMBER'
+                
+                // Attendre que le déploiement soit terminé
+                sh 'kubectl rollout status deployment/your-deployment-name'
+            }
+        }*/
 
 
         /*stage('Set Environment Variables') {
