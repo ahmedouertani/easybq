@@ -55,11 +55,11 @@ pipeline {
                 }
         }
 
-        /*stage('ExcuteSonarQubeReport') { //Installer les dépendances du projet
+        stage('ExcuteSonarQubeReport') { //Installer les dépendances du projet
             steps {
                 sh 'npm run sonar-scanner'
             }
-        }*/
+        }
 
         stage('Build') {
             steps {    
@@ -67,7 +67,7 @@ pipeline {
                 }
         }
 
-       /* stage("Publish to Nexus Repository Manager") {
+        stage("Publish to Nexus Repository Manager") {
             steps {
                  script {
             // Récupération des fichiers .js dans le sous-dossier easy-bq du répertoire dist
@@ -107,7 +107,7 @@ pipeline {
                 }
             }
         }
-     }*/
+     }
 
         stage('BuildDockerImage') {
                 steps {
@@ -123,7 +123,7 @@ pipeline {
             }
         }
 
-        /*stage('PushDocker') {
+        stage('PushDocker') {
             steps {
                sh 'docker push bouhmiid/easybb789:latest'
                }
@@ -132,10 +132,10 @@ pipeline {
         stage('RunDockerContainer') {
             steps {
                 script {
-                    docker.image('bouhmiid/easybb789').run('-p 7771:4200')
+                    docker.image('bouhmiid/easybb789').run('-p 0021:4200')
                 }
             }
-        }*/
+        }
 
   stage('Deploy to GKE') {
     steps {
