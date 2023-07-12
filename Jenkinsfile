@@ -67,7 +67,7 @@ pipeline {
                 }
         }
 
-        stage("Publish to Nexus Repository Manager") {
+        /*stage("Publish to Nexus Repository Manager") {
             steps {
                  script {
             // Récupération des fichiers .js dans le sous-dossier easy-bq du répertoire dist
@@ -107,7 +107,7 @@ pipeline {
                 }
             }
         }
-     }
+     }*/
 
         stage('BuildDockerImage') {
                 steps {
